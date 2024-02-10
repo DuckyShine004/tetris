@@ -3,3 +3,6 @@ SURFACE_COLOR = (255, 255, 255)
 WIDTH = 1080
 HEIGHT = 720
 FPS = 60
+
+# PATHS
+MUSIC_PATH = "assets/music/loop.wav"

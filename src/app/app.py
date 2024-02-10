@@ -1,6 +1,12 @@
 import pygame
 
-from src.constants.constants import SURFACE_COLOR, WIDTH, HEIGHT, FPS
+from src.constants.constants import (
+    SURFACE_COLOR,
+    WIDTH,
+    HEIGHT,
+    FPS,
+    MUSIC_PATH,
+)
 
 
 class App:
@@ -9,6 +15,7 @@ class App:
         self.is_running = True
 
     def run(self):
+        self.play_music()
         clock = pygame.time.Clock()
 
         while self.is_running:
@@ -22,3 +29,7 @@ class App:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 self.is_running = False
+
+    def play_music(self):
+        pygame.mixer.music.load(MUSIC_PATH)
+        pygame.mixer.music.play(-1)
