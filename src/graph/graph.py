@@ -1,3 +1,4 @@
+import copy
 import pygame
 import random
 
@@ -42,7 +43,9 @@ class Graph:
         if delta_time < self.delay:
             return
 
-        self.tetromino.move_vertically()
+        if not self.tetromino.move_vertically():
+            self.tetromino = None
+
         self.previous_time = current_time
 
     def set_tetromino(self):
@@ -50,7 +53,7 @@ class Graph:
         index = 0
 
         tetromino = TETROMINOES[index]
-        arguments = TETROMINO_ARGUMENTS[tetromino]
+        arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
 
         self.tetromino = Tetromino(self, **arguments)
 
