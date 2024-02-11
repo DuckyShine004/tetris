@@ -1,13 +1,13 @@
 import pygame
 
-from src.utility.utility import Utility
-from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH, MOVEMENT_DELAY
+from src.constants.constants import (
+    GRAPH_HEIGHT,
+    GRAPH_WIDTH,
+    MOVEMENT_DELAY,
+)
 
 
 class Tetromino:
-    ROTATION_KEYSTROKES = [pygame.K_COMMA, pygame.K_PERIOD]
-    MOVEMENT_KEYSTROKES = [pygame.K_a, pygame.K_d]
-
     def __init__(self, graph, **kwargs):
         self.graph = graph
 
@@ -15,16 +15,24 @@ class Tetromino:
         self.origin = kwargs["origin"]
         self.color = kwargs["color"]
 
+        self.is_rotating_clockwise = False
+        self.is_rotating_anti_clockwise = False
+
         self.previous_time = 0
 
     def update(self, keystroke):
-        if keystroke in Tetromino.ROTATION_KEYSTROKES:
-            self.rotate(keystroke)
+        self.rotate()
 
-        if keystroke in Tetromino.MOVEMENT_KEYSTROKES:
-            self.move_horizontally(keystroke)
+        current_time = pygame.time.get_ticks()
+        delta_time = current_time - self.previous_time
 
+        if delta_time < MOVEMENT_DELAY:
+            return
+
+        self.move_horizontally()
         self.color_cells()
+
+        self.previous_time = current_time
 
     def color_cells(self, is_color=True):
         color = self.color if is_color else None
@@ -32,26 +40,75 @@ class Tetromino:
         for x, y in self.positions:
             self.graph.cells[x][y].color = color
 
-    def rotate(self, keystroke):
-        if keystroke == pygame.K_PERIOD:
+    def rotate(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_PERIOD] and not self.is_rotating_clockwise:
             self.rotate_clockwise()
-        else:
+            self.is_rotating_clockwise = True
+        elif not keys[pygame.K_PERIOD]:
+            self.is_rotating_clockwise = False
+
+        if keys[pygame.K_COMMA] and not self.is_rotating_anti_clockwise:
             self.rotate_anti_clockwise()
+            self.is_rotating_anti_clockwise = True
+        elif not keys[pygame.K_COMMA]:
+            self.is_rotating_anti_clockwise = False
 
     def rotate_clockwise(self):
-        pass
+        pivot = self.positions[self.origin]
+        rotations = []
+
+        for position in self.positions:
+            x = sum(pivot) - position[1]
+            y = position[0] + pivot[1] - pivot[0]
+            rotation = [x, y]
+
+            if not self.is_valid_rotation(rotation):
+                return
+
+            rotations.append(rotation)
+
+        self.color_cells(False)
+        self.positions = list(rotations)
 
     def rotate_anti_clockwise(self):
-        pass
+        pivot = self.positions[self.origin]
+        rotations = []
 
-    def move_horizontally(self, keystroke):
-        current_time = pygame.time.get_ticks()
-        delta_time = current_time - self.previous_time
+        for position in self.positions:
+            x = position[1] + pivot[0] - pivot[1]
+            y = sum(pivot) - position[0]
+            rotation = [x, y]
 
-        if delta_time < MOVEMENT_DELAY:
-            return
+            if not self.is_valid_rotation(rotation):
+                return
 
-        direction = 1 if keystroke == pygame.K_d else -1
+            rotations.append(rotation)
+
+        self.color_cells(False)
+        self.positions = list(rotations)
+
+    def is_valid_rotation(self, rotation):
+        x, y = rotation
+
+        if x < 0 or x >= GRAPH_WIDTH:
+            return False
+
+        if y < 0 or y >= GRAPH_HEIGHT:
+            return False
+
+        return True
+
+    def move_horizontally(self):
+        keys = pygame.key.get_pressed()
+        direction = 0
+
+        if keys[pygame.K_a]:
+            direction = -1
+
+        if keys[pygame.K_d]:
+            direction = 1
 
         if not self.is_horizontal_move_valid(direction):
             return
@@ -60,8 +117,6 @@ class Tetromino:
 
         for position in self.positions:
             position[0] += direction
-
-        self.previous_time = current_time
 
     def move_vertically(self):
         self.color_cells(False)
