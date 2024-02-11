@@ -24,12 +24,13 @@ class Tetromino:
         if keystroke in Tetromino.MOVEMENT_KEYSTROKES:
             self.move_horizontally(keystroke)
 
-        self.update_graph_cell_colors()
+        self.color_cells()
 
-        self.graph.cells[self.origin[0]][self.origin[1]].color = self.color
+    def color_cells(self, is_color=True):
+        color = self.color if is_color else None
 
-    def update_graph_cell_colors(self):
-        pass
+        for x, y in self.positions:
+            self.graph.cells[x][y].color = color
 
     def rotate(self, keystroke):
         if keystroke == pygame.K_PERIOD:
@@ -50,17 +51,19 @@ class Tetromino:
         if delta_time < MOVEMENT_DELAY:
             return
 
-        offset = 1 if keystroke == pygame.K_d else -1
+        direction = 1 if keystroke == pygame.K_d else -1
+        self.color_cells(False)
 
-        self.origin[0] = Utility.clamp(self.origin[0] + offset, 0, GRAPH_WIDTH - 1)
+        for position in self.positions:
+            position[0] = Utility.clamp(position[0] + direction, 0, GRAPH_WIDTH - 1)
+
         self.previous_time = current_time
 
     def move_vertically(self, keystroke):
-        for position in self.positions:
-            x, y = position
-            position = [x, y + 1]
+        self.color_cells(False)
 
-        self.origin[1] += 1
+        for position in self.positions:
+            position[1] += 1
 
     def is_next_move_valid(self):
         for position in self.positions:

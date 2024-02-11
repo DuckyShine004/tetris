@@ -53,6 +53,9 @@ class App:
             if event.key == pygame.K_ESCAPE:
                 self.is_running = False
 
+        if event.type == pygame.KEYUP:
+            self.keystroke = None
+
     def play_music(self):
         pygame.mixer.music.load(MUSIC_PATH)
         pygame.mixer.music.play(-1)
