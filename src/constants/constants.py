@@ -40,7 +40,7 @@ TETROMINO_ARGUMENTS = {
             [1, 3],
         ],
         "origin": 3,
-        "color": (0, 240, 240),
+        "color": (240, 240, 0),
     },
     "TMino": {
         "positions": [
@@ -76,7 +76,7 @@ TETROMINO_ARGUMENTS = {
         "positions": [
             [0, 3],
             [1, 3],
-            [2, 3],
+            [1, 2],
             [2, 2],
         ],
         "origin": 1,
@@ -84,12 +84,12 @@ TETROMINO_ARGUMENTS = {
     },
     "ZMino": {
         "positions": [
-            [0, 3],
+            [0, 2],
+            [1, 2],
             [1, 3],
             [2, 3],
-            [2, 2],
         ],
-        "origin": 1,
+        "origin": 2,
         "color": (240, 0, 0),
     },
 }
