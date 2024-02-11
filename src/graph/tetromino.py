@@ -98,6 +98,9 @@ class Tetromino:
         if y < 0 or y >= GRAPH_HEIGHT:
             return False
 
+        if self.graph.cells[x][y].is_occupied:
+            return False
+
         return True
 
     def move_horizontally(self):
@@ -119,10 +122,17 @@ class Tetromino:
             position[0] += direction
 
     def move_vertically(self):
+        self.color_cells()
+
+        if not self.is_next_vertical_move_valid():
+            return False
+
         self.color_cells(False)
 
         for position in self.positions:
             position[1] += 1
+
+        return True
 
     def is_horizontal_move_valid(self, direction):
         for position in self.positions:
@@ -131,11 +141,28 @@ class Tetromino:
             if delta < 0 or delta >= GRAPH_WIDTH:
                 return False
 
-        return True
-
-    def is_next_vertical_move_valid(self):
-        for position in self.positions:
-            if position[1] == GRAPH_HEIGHT - 1:
+            if self.graph.cells[delta][position[1]].is_occupied:
                 return False
 
         return True
+
+    def is_next_vertical_move_valid(self):
+        is_vertical_move_valid = True
+
+        for position in self.positions:
+            delta = position[1] + 1
+
+            if delta < GRAPH_HEIGHT and not self.graph.cells[position[0]][delta].is_occupied:
+                continue
+
+            is_vertical_move_valid = False
+            break
+
+        if is_vertical_move_valid:
+            return True
+
+        for position in self.positions:
+            x, y = position
+            self.graph.cells[x][y].is_occupied = True
+
+        return False

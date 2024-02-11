@@ -8,6 +8,7 @@ class Cell:
         self.rect = pygame.Rect(x, y, *CELL_SIZE)
         self.color = color
         self.is_moving = is_moving
+        self.is_occupied = False
 
     def render(self, surface):
         if not self.color:
