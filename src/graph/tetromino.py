@@ -1,7 +1,7 @@
 import pygame
 
 from src.utility.utility import Utility
-from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH
+from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH, MOVEMENT_DELAY
 
 
 class Tetromino:
@@ -15,9 +15,7 @@ class Tetromino:
         self.origin = kwargs["origin"]
         self.color = kwargs["color"]
 
-    @staticmethod
-    def get_random_tetromino():
-        return self()
+        self.previous_time = 0
 
     def update(self, keystroke):
         if keystroke in Tetromino.ROTATION_KEYSTROKES:
@@ -46,14 +44,16 @@ class Tetromino:
         pass
 
     def move_horizontally(self, keystroke):
-        offset = 0
+        current_time = pygame.time.get_ticks()
+        delta_time = current_time - self.previous_time
 
-        if keystroke == pygame.K_a:
-            offset = 1
-        else:
-            offset = -1
+        if delta_time < MOVEMENT_DELAY:
+            return
+
+        offset = 1 if keystroke == pygame.K_d else -1
 
         self.origin[0] = Utility.clamp(self.origin[0] + offset, 0, GRAPH_WIDTH - 1)
+        self.previous_time = current_time
 
     def move_vertically(self, keystroke):
         for position in self.positions:

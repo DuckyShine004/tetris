@@ -30,7 +30,7 @@ class Graph:
         ]
 
         self.max_delay = MAX_DELAY
-        self.delay = INITIAL_DELAY
+        self.delay = MAX_DELAY
         self.previous_time = 0
         self.tetromino = None
 
@@ -40,9 +40,11 @@ class Graph:
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
 
-        if delta_time >= self.delay:
-            self.tetromino.move_vertically(keystroke)
-            self.previous_time = current_time
+        if delta_time < self.delay:
+            return
+
+        self.tetromino.move_vertically(keystroke)
+        self.previous_time = current_time
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
