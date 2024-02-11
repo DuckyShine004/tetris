@@ -50,8 +50,6 @@ class Graph:
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
-        index = 0
-
         tetromino = TETROMINOES[index]
         arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
 
