@@ -17,8 +17,6 @@ class App:
 
         self.graph = Graph()
 
-        self.keystroke = None
-
     def run(self):
         self.play_music()
         clock = pygame.time.Clock()
@@ -34,7 +32,7 @@ class App:
             clock.tick(FPS)
 
     def update(self):
-        self.graph.update(self.keystroke)
+        self.graph.update()
 
     def render(self):
         self.graph.render(self.surface)
@@ -48,13 +46,8 @@ class App:
 
     def handle_peripherals(self, event):
         if event.type == pygame.KEYDOWN:
-            self.keystroke = event.key
-
             if event.key == pygame.K_ESCAPE:
                 self.is_running = False
-
-        if event.type == pygame.KEYUP:
-            self.keystroke = None
 
     def play_music(self):
         pygame.mixer.music.load(MUSIC_PATH)

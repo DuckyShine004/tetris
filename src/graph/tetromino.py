@@ -20,7 +20,7 @@ class Tetromino:
 
         self.previous_time = 0
 
-    def update(self, keystroke):
+    def update(self):
         self.rotate()
 
         current_time = pygame.time.get_ticks()
