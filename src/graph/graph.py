@@ -43,7 +43,7 @@ class Graph:
         if delta_time < self.delay:
             return
 
-        self.tetromino.move_vertically(keystroke)
+        self.tetromino.move_vertically()
         self.previous_time = current_time
 
     def set_tetromino(self):
