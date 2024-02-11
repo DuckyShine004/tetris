@@ -6,9 +6,8 @@ FPS = 60
 
 # GRAPH
 GRAPH_WIDTH = 10
-GRAPH_HEIGHT = 24
+GRAPH_HEIGHT = 28
 MAX_DELAY = 500
-INITIAL_DELAY = 500
 MOVEMENT_DELAY = 100
 
 # TETROMINO
@@ -24,14 +23,20 @@ TETROMINOES = [
 
 TETROMINO_ARGUMENTS = {
     "IMino": {
-        "positions": [[0, 0]],
-        "origin": [0, 0],
-        "color": (0, 0, 0),
+        "positions": [
+            [0, 3],
+            [1, 3],
+            [2, 3],
+            [1, 2],
+        ],
+        "origin": 1,
+        "color": (160, 0, 240),
     },
 }
 # CELL
-CELL_SIZE = (40, 40)
+CELL_SIZE = (30, 30)
 CELL_OFFSET = (0, 0)
+BLACK = (0, 0, 0)
 
 # PATHS
 MUSIC_PATH = "assets/music/loop.wav"

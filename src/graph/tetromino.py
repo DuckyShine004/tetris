@@ -52,22 +52,35 @@ class Tetromino:
             return
 
         direction = 1 if keystroke == pygame.K_d else -1
+
+        if not self.is_horizontal_move_valid(direction):
+            return
+
         self.color_cells(False)
 
         for position in self.positions:
-            position[0] = Utility.clamp(position[0] + direction, 0, GRAPH_WIDTH - 1)
+            position[0] += direction
 
         self.previous_time = current_time
 
-    def move_vertically(self, keystroke):
+    def move_vertically(self):
         self.color_cells(False)
 
         for position in self.positions:
             position[1] += 1
 
-    def is_next_move_valid(self):
+    def is_horizontal_move_valid(self, direction):
         for position in self.positions:
-            if position[1] + 1 >= GRAPH_HEIGHT:
+            delta = position[0] + direction
+
+            if delta < 0 or delta >= GRAPH_WIDTH:
+                return False
+
+        return True
+
+    def is_next_vertical_move_valid(self):
+        for position in self.positions:
+            if position[1] == GRAPH_HEIGHT - 1:
                 return False
 
         return True

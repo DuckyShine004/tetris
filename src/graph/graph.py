@@ -8,7 +8,6 @@ from src.constants.constants import (
     GRAPH_WIDTH,
     GRAPH_HEIGHT,
     MAX_DELAY,
-    INITIAL_DELAY,
     CELL_SIZE,
     CELL_OFFSET,
     TETROMINOES,
