@@ -2,6 +2,7 @@ import pygame
 import random
 
 from src.graph.cell import Cell
+from src.graph.tetromino import Tetromino
 
 from src.constants.constants import (
     GRAPH_WIDTH,
@@ -10,8 +11,9 @@ from src.constants.constants import (
     INITIAL_DELAY,
     CELL_SIZE,
     CELL_OFFSET,
+    TETROMINOES,
+    TETROMINO_ARGUMENTS,
 )
-from src.utility.utility import Utility
 
 
 class Graph:
@@ -32,41 +34,31 @@ class Graph:
         self.previous_time = 0
         self.tetromino = None
 
-    def update(self, event):
-        self.handle_rotations(event)
+    def update(self, keystroke):
+        self.handle_tetromino(keystroke)
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
 
         if delta_time >= self.delay:
-            self.move_piece()
+            self.tetromino.move_vertically(keystroke)
             self.previous_time = current_time
 
-    def handle_rotations(self, event):
+    def set_tetromino(self):
+        index = random.randint(0, len(TETROMINOES) - 1)
+        index = 0
+
+        tetromino = TETROMINOES[index]
+        arguments = TETROMINO_ARGUMENTS[tetromino]
+
+        self.tetromino = Tetromino(self, **arguments)
+
+    def handle_tetromino(self, keystroke):
         if not self.tetromino:
+            self.set_tetromino()
             return
 
-        if event.type != pygame.KEYDOWN:
-            return
-
-        if event.key not in [pygame.K_COMMA, pygame.K_PERIOD]:
-            return
-
-        self.tetromino.rotate(event.key == pygame.K_COMMA)
-
-    def move_piece(self):
-        if not self.tetromino:
-            self.set_random_piece()
-            return
-
-        if not self.tetromino.is_next_move_valid():
-            self.tetromino = None
-            return
-
-        self.tetromino.move()
-
-    def set_random_piece(self):
-        self.tetromino = Utility.get_random_tetromino(self)
+        self.tetromino.update(keystroke)
 
     def render(self, surface):
         for row in self.cells:
