@@ -1,6 +1,6 @@
 import pygame
 
-from src.constants.constants import CELL_SIZE
+from src.constants.constants import CELL_SIZE, BLACK
 
 
 class Cell:
@@ -14,3 +14,4 @@ class Cell:
             return
 
         pygame.draw.rect(surface, self.color, self.rect)
+        pygame.draw.rect(surface, BLACK, self.rect, 2)

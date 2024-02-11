@@ -8,7 +8,6 @@ from src.constants.constants import (
     GRAPH_WIDTH,
     GRAPH_HEIGHT,
     MAX_DELAY,
-    INITIAL_DELAY,
     CELL_SIZE,
     CELL_OFFSET,
     TETROMINOES,
@@ -34,8 +33,8 @@ class Graph:
         self.previous_time = 0
         self.tetromino = None
 
-    def update(self, keystroke):
-        self.handle_tetromino(keystroke)
+    def update(self):
+        self.handle_tetromino()
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -55,12 +54,12 @@ class Graph:
 
         self.tetromino = Tetromino(self, **arguments)
 
-    def handle_tetromino(self, keystroke):
+    def handle_tetromino(self):
         if not self.tetromino:
             self.set_tetromino()
             return
 
-        self.tetromino.update(keystroke)
+        self.tetromino.update()
 
     def render(self, surface):
         for row in self.cells:
