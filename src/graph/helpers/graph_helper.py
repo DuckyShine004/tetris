@@ -1,4 +1,5 @@
 import pygame
+import copy
 
 from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH
 
@@ -13,8 +14,8 @@ class GraphHelper:
 
         if keys[pygame.K_s]:
             tetromino.color_cells(False)
-            self.clear_ghost_positions()
             tetromino.positions = list(self.ghost_positions)
+            self.clear_ghost_positions()
 
     def set_ghost_positions(self, tetromino):
         height = 0
@@ -37,7 +38,6 @@ class GraphHelper:
 
     def set_new_ghost_positions(self, positions, height):
         self.clear_ghost_positions()
-        self.ghost_positions = [[position[0], position[1] + height - 1] for position in positions]
 
         for x, y in positions:
             delta = y + height - 1
@@ -57,6 +57,8 @@ class GraphHelper:
         for x, y in self.ghost_positions:
             self.graph.set_ghost(y, x, False)
 
+        self.ghost_positions.clear()
+
     def clear_full_rows(self):
         rows = []
 
@@ -67,9 +69,20 @@ class GraphHelper:
         if not rows:
             return
 
-        self.move_cells_down(rows[0], len(rows))
+        self.move_cells_down(rows)
 
-    def move_cells_down(self, start, height):
+    def clear_rows(self, rows):
+        for row in rows:
+            for column in range(GRAPH_WIDTH):
+                self.graph.set_occupied(row, column, False)
+                self.graph.set_color(row, column, None)
+
+    def move_cells_down(self, rows):
+        self.clear_rows(rows)
+
+        start = rows[0]
+        height = len(rows)
+
         for row in range(start - 1, -1, -1):
             for column in range(GRAPH_WIDTH):
                 if not self.graph.is_cell_occupied(row, column):

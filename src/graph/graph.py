@@ -3,6 +3,7 @@ import pygame
 import random
 
 from src.graph.helpers.graph_helper import GraphHelper
+from src.graph.helpers.tetromino_helper import TetrominoHelper
 
 from src.graph.cell import Cell
 from src.graph.tetromino import Tetromino
@@ -37,10 +38,10 @@ class Graph:
         self.tetromino = None
 
         self.graph_helper = GraphHelper(self)
+        self.tetromino_helper = TetrominoHelper(self)
 
     def update(self):
         self.handle_tetromino()
-        self.graph_helper.set_ghost_positions(self.tetromino)
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -56,6 +57,9 @@ class Graph:
 
     def is_cell_occupied(self, row, column):
         return self.cells[column][row].is_occupied
+
+    def set_occupied(self, row, column, is_occupied):
+        self.cells[column][row].is_occupied = is_occupied
 
     def set_ghost(self, row, column, is_ghost):
         self.cells[column][row].is_ghost = is_ghost
@@ -78,6 +82,8 @@ class Graph:
         keys = pygame.key.get_pressed()
 
         self.graph_helper.update(self.tetromino, keys)
+        # self.tetromino_helper.update(self.tetromino, keys)
+
         self.tetromino.update(keys)
 
     def render(self, surface):

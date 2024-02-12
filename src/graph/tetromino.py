@@ -35,6 +35,10 @@ class Tetromino:
 
         self.previous_time = current_time
 
+    def occupy_cells(self):
+        for x, y in self.positions:
+            self.graph.set_occupied(y, x, True)
+
     def color_cells(self, is_color=True):
         color = self.color if is_color else None
 
@@ -132,6 +136,7 @@ class Tetromino:
         if is_vertical_move_valid:
             return True
 
+        # If not valid, then set the occupancies
         for position in self.positions:
             x, y = position
             self.graph.cells[x][y].is_occupied = True
