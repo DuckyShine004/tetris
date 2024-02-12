@@ -33,9 +33,11 @@ class Graph:
         self.delay = MAX_DELAY
         self.previous_time = 0
         self.tetromino = None
+        self.predictions = []
 
     def update(self):
         self.handle_tetromino()
+        self.get_prediction()
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -48,6 +50,31 @@ class Graph:
             self.tetromino = None
 
         self.previous_time = current_time
+
+    def get_prediction(self):
+        offset = 0
+
+        for dy in range(GRAPH_HEIGHT):
+            offset = dy
+            is_prediction_found = False
+
+            for position in self.tetromino.positions:
+                delta = dy + position[1]
+
+                if delta >= GRAPH_HEIGHT or self.cells[position[0]][delta].is_occupied:
+                    is_prediction_found = True
+                    break
+
+            if is_prediction_found:
+                break
+
+        for x, y in self.predictions:
+            self.cells[x][y].is_prediction = False
+
+        self.predictions = [[positions[0], positions[1] + offset - 1] for positions in self.tetromino.positions]
+
+        for x, y in self.predictions:
+            self.cells[x][y].is_prediction = True
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)

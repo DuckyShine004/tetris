@@ -1,6 +1,11 @@
 import pygame
 
-from src.constants.constants import CELL_SIZE, BORDER_SIZE, OUTLINE
+from src.constants.constants import (
+    CELL_SIZE,
+    BORDER_SIZE,
+    OUTLINE,
+    PREDICTION,
+)
 
 
 class Cell:
@@ -8,9 +13,12 @@ class Cell:
         self.rect = pygame.Rect(x, y, *CELL_SIZE)
         self.color = color
         self.is_moving = is_moving
+        self.is_prediction = False
         self.is_occupied = False
 
     def render(self, surface):
+        if self.is_prediction:
+            pygame.draw.rect(surface, PREDICTION, self.rect, 2, BORDER_SIZE)
         if not self.color:
             return
 
