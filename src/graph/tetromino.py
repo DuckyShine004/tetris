@@ -22,6 +22,7 @@ class Tetromino:
 
     def update(self):
         self.rotate()
+        self.move_to_prediction()
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -33,6 +34,13 @@ class Tetromino:
         self.color_cells()
 
         self.previous_time = current_time
+
+    def move_to_prediction(self):
+        keys = pygame.key.get_pressed()
+
+        if keys[pygame.K_s]:
+            self.color_cells(False)
+            self.positions = list(self.graph.predictions)
 
     def color_cells(self, is_color=True):
         color = self.color if is_color else None
