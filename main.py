@@ -1,4 +1,5 @@
 """The main driver code."""
+
 import os
 import pygame
 
@@ -9,7 +10,7 @@ from src.constants.constants import CAPTION
 pygame.init()
 
 
-def main():
+def main() -> None:
     """Gets called if this is the module containing the main driver code."""
 
     os.environ["SDL_VIDEO_CENTERED"] = "1"
