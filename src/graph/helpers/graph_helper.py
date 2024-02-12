@@ -1,10 +1,17 @@
+import pygame
+
 from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH
 
 
-class Helper:
+class GraphHelper:
     def __init__(self, graph):
         self.graph = graph
         self.ghost_positions = []
+
+    def update(self, tetromino, keys):
+        if keys[pygame.K_s]:
+            self.graph.set_color(False)
+            tetromino.positions = list(self.ghost_positions)
 
     def set_ghost_positions(self, tetromino):
         height = 0
@@ -25,15 +32,18 @@ class Helper:
 
         self.set_new_ghost_positions(tetromino.positions, height)
 
-    def set_new_ghost_positions(self, positions, height):
+    def clear_ghost_positions(self):
         for x, y in self.ghost_positions:
             self.graph.set_ghost(y, x, False)
 
+    def set_new_ghost_positions(self, positions, height):
+        self.clear_ghost_positions()
         self.ghost_positions = [[position[0], position[1] + height - 1] for position in positions]
 
         for x, y in positions:
             delta = y + height - 1
             self.ghost_positions.append([x, delta])
+            self.graph.set_ghost(delta, x, True)
 
     def set_falling_cell_positions(self, row, column, height):
         color = self.graph.cells[column][row].color

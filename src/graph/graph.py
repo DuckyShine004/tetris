@@ -1,7 +1,8 @@
 import copy
 import pygame
 import random
-from src.graph.helper import Helper
+
+from src.graph.helpers.graph_helper import GraphHelper
 
 from src.graph.cell import Cell
 from src.graph.tetromino import Tetromino
@@ -34,18 +35,12 @@ class Graph:
         self.delay = MAX_DELAY
         self.previous_time = 0
         self.tetromino = None
-        self.predictions = []
-        self.helper = Helper(self)
 
-    def is_cell_occupied(self, row, column):
-        return self.cells[column][row].is_occupied
-
-    def set_ghost(self, row, column, is_ghost):
-        self.cells[column][row].is_ghost = is_ghost
+        self.graph_helper = GraphHelper(self)
 
     def update(self):
         self.handle_tetromino()
-        self.helper.set_ghost_positions(self.tetromino)
+        self.graph_helper.set_ghost_positions(self.tetromino)
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -54,36 +49,16 @@ class Graph:
             return
 
         if not self.tetromino.move_vertically():
-            self.helper.clear_full_rows()
+            self.graph_helper.clear_full_rows()
             self.tetromino = None
 
         self.previous_time = current_time
 
-    def get_prediction(self):
-        print(self.tetromino, self.predictions)
-        offset = 0
+    def is_cell_occupied(self, row, column):
+        return self.cells[column][row].is_occupied
 
-        for dy in range(GRAPH_HEIGHT):
-            offset = dy
-            is_prediction_found = False
-
-            for position in self.tetromino.positions:
-                delta = dy + position[1]
-
-                if delta >= GRAPH_HEIGHT or self.cells[position[0]][delta].is_occupied:
-                    is_prediction_found = True
-                    break
-
-            if is_prediction_found:
-                break
-
-        for x, y in self.predictions:
-            self.cells[x][y].is_prediction = False
-
-        self.predictions = [[positions[0], positions[1] + offset - 1] for positions in self.tetromino.positions]
-
-        for x, y in self.predictions:
-            self.cells[x][y].is_prediction = True
+    def set_ghost(self, row, column, is_ghost):
+        self.cells[column][row].is_ghost = is_ghost
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
@@ -99,6 +74,7 @@ class Graph:
 
         keys = pygame.key.get_pressed()
 
+        # self.graph_helper.update(self.tetromino, keys)
         self.tetromino.update(keys)
 
     def render(self, surface):
