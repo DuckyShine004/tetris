@@ -1,6 +1,6 @@
 """This module allows for a graph datastructure."""
 
-from typing import TYPE_CHECKING, List, Optional
+from typing import List, Optional
 
 import copy
 import random
@@ -38,7 +38,7 @@ class Graph:
         tetromino_helper (TetrominoHelper): The TetrominoHelper object.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initializes the graph object."""
 
         self.cells = [
