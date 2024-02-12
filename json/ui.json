@@ -1,0 +1,27 @@
+{
+    "background": {
+        "position": [0, 0],
+        "image": "assets/ui/background/bg3.jpg"
+    },
+    "containers": [
+        {
+            "position": [190, 200],
+            "size": [320, 730],
+            "color": [11, 26, 73],
+            "border": [0, 6]
+        },
+        {
+            "position": [190, 200],
+            "size": [320, 730],
+            "color": [116, 139, 251],
+            "border": [8, 6]
+        },
+        {
+            "position": [530, 200],
+            "size": [120, 300],
+            "color": [255, 255, 255],
+            "border": [0, 4]
+        }
+
+    ]
+}
