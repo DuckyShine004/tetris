@@ -1,5 +1,4 @@
 import pygame
-import copy
 
 from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH
 
