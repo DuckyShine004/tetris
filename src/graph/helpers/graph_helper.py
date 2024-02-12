@@ -1,15 +1,44 @@
+"""This module helps in extracting logic from large classes."""
+
+from typing import TYPE_CHECKING, List
+
 import pygame
-import copy
 
 from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH
 
+if TYPE_CHECKING:
+    from src.graph.graph import Graph
+    from src.graph.tetromino import Tetromino
+
 
 class GraphHelper:
-    def __init__(self, graph):
-        self.graph = graph
-        self.ghost_positions = []
+    """This class is used to extract logic from the large classes, 'Graph' and
+    'Tetromino'.
 
-    def update(self, tetromino, keys):
+    Attributes:
+        ghost_positions (list): List of ghost positions.
+        graph (Graph): The graph object.
+    """
+
+    def __init__(self, graph: "Graph") -> None:
+        """Initializes the GraphHelper object.
+
+        Args:
+            graph (Graph): The graph object.
+        """
+
+        self.graph: "Graph" = graph
+        self.ghost_positions: List[List[int]] = []
+
+    def update(self, tetromino: "Tetromino", keys: pygame.key.ScancodeWrapper) -> None:
+        """Helps with updating the graph and tetromino. This is all to extract
+        from the large graph and tetromino classes.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            keys (pygame.key.ScancodeWrapper): The keystroke.
+        """
+
         self.set_ghost_positions(tetromino)
 
         if keys[pygame.K_s]:
@@ -17,7 +46,13 @@ class GraphHelper:
             tetromino.positions = list(self.ghost_positions)
             self.clear_ghost_positions()
 
-    def set_ghost_positions(self, tetromino):
+    def set_ghost_positions(self, tetromino: "Tetromino") -> None:
+        """Calculate and set the ghost tetromino positions.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+        """
+
         height = 0
 
         for offset_y in range(GRAPH_HEIGHT):
@@ -36,7 +71,14 @@ class GraphHelper:
 
         self.set_new_ghost_positions(tetromino.positions, height)
 
-    def set_new_ghost_positions(self, positions, height):
+    def set_new_ghost_positions(self, positions: List[List[int]], height: int) -> None:
+        """Calculate and set the next ghost tetromino position.
+
+        Args:
+            positions (List[List[int]]): The current free-falling tetromino positions.
+            height (int): The drop distance.
+        """
+
         self.clear_ghost_positions()
 
         for x, y in positions:
@@ -44,7 +86,16 @@ class GraphHelper:
             self.ghost_positions.append([x, delta])
             self.graph.set_ghost(delta, x, True)
 
-    def set_falling_cell_positions(self, row, column, height):
+    def set_falling_cell_positions(self, row: int, column: int, height: int) -> None:
+        """Calculate and set the new positions of the cells, i.e. make the cells
+        fall into a new position after removal.
+
+        Args:
+            row (int): The current row.
+            column (int): The current column.
+            height (int): The height of the number of rows removed.
+        """
+
         color = self.graph.cells[column][row].color
         delta = row + height
 
@@ -53,13 +104,22 @@ class GraphHelper:
         self.graph.cells[column][delta].is_occupied = True
         self.graph.cells[column][row].is_occupied = False
 
-    def clear_ghost_positions(self):
+    def clear_ghost_positions(self) -> None:
+        """Clears the current ghost position."""
+
         for x, y in self.ghost_positions:
             self.graph.set_ghost(y, x, False)
 
         self.ghost_positions.clear()
 
-    def clear_full_rows(self):
+    def clear_full_rows(self) -> None:
+        """Clear and remove all full rows. A full row is a row that is
+        occupied by tetrominoes.
+
+        Returns:
+            None: Nothing is returned
+        """
+
         rows = []
 
         for row in range(GRAPH_HEIGHT):
@@ -71,13 +131,25 @@ class GraphHelper:
 
         self.move_cells_down(rows)
 
-    def clear_rows(self, rows):
+    def clear_rows(self, rows: List[int]) -> None:
+        """Clear all rows that are in the rows list.
+
+        Args:
+            rows (List[int]): The rows to be removed.
+        """
+
         for row in rows:
             for column in range(GRAPH_WIDTH):
                 self.graph.set_occupied(row, column, False)
                 self.graph.set_color(row, column, None)
 
-    def move_cells_down(self, rows):
+    def move_cells_down(self, rows: List[int]) -> None:
+        """Move all the cells down after clearing all full rows.
+
+        Args:
+            rows (List[int]): The rows to be removed.
+        """
+
         self.clear_rows(rows)
 
         start = rows[0]

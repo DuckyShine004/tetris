@@ -1,18 +1,54 @@
+"""This module helps in extracting logic from large classes."""
+
+from typing import TYPE_CHECKING
+
 import pygame
 
 from src.constants.constants import GRAPH_WIDTH, MOVEMENT_DELAY
 
+if TYPE_CHECKING:
+    from src.graph.graph import Graph
+    from src.graph.tetromino import Tetromino
+
 
 class TetrominoHelper:
-    def __init__(self, graph):
-        self.graph = graph
+    """This class is used to extract logic from the large classes, 'Graph' and
+    'Tetromino'.
 
-        self.is_rotating_clockwise = False
-        self.is_rotating_anti_clockwise = False
+    Attributes:
+        graph (Graph): The graph object.
+        is_rotating_anti_clockwise (bool): Is the current tetromino rotating
+        anti-clockwise.
+        is_rotating_clockwise (bool): Is the current tetromino rotating
+        clockwise.
+        previous_time (int): The previous frame before delay.
+    """
 
-        self.previous_time = 0
+    def __init__(self, graph: "Graph") -> None:
+        """Initializes the TetrominoHelper object.
 
-    def update(self, tetromino, keys):
+        Args:
+            graph (Graph): The graph object.
+        """
+
+        self.graph: "Graph" = graph
+
+        self.is_rotating_clockwise: bool = False
+        self.is_rotating_anti_clockwise: bool = False
+
+        self.previous_time: int = 0
+
+    def update(self, tetromino: "Tetromino", keys: pygame.key.ScancodeWrapper) -> None:
+        """Updates the current tetromino.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            keys (pygame.key.ScancodeWrapper): The keystrokes.
+
+        Returns:
+            None: Nothing is returned.
+        """
+
         self.rotate(tetromino, keys)
 
         current_time = pygame.time.get_ticks()
@@ -26,7 +62,15 @@ class TetrominoHelper:
 
         self.previous_time = current_time
 
-    def rotate(self, tetromino, keys):
+    def rotate(self, tetromino: "Tetromino", keys: pygame.key.ScancodeWrapper) -> None:
+        """Rotates the current tetromino clockwise or anti-clockwise, depending
+        on the keystroke.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            keys (pygame.key.ScancodeWrapper): The keystrokes.
+        """
+
         if keys[pygame.K_PERIOD] and not self.is_rotating_clockwise:
             tetromino.rotate_clockwise()
             self.is_rotating_clockwise = True
@@ -39,7 +83,17 @@ class TetrominoHelper:
         elif not keys[pygame.K_COMMA]:
             self.is_rotating_anti_clockwise = False
 
-    def move_horizontally(self, tetromino, keys):
+    def move_horizontally(self, tetromino: "Tetromino", keys: pygame.key.ScancodeWrapper) -> None:
+        """Moves the current tetromino horizontally.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            keys (pygame.key.ScancodeWrapper): The keystrokes.
+
+        Returns:
+            None: Nothing is returned.
+        """
+
         direction = 0
 
         if keys[pygame.K_a]:
@@ -56,7 +110,17 @@ class TetrominoHelper:
         for position in tetromino.positions:
             position[0] += direction
 
-    def is_horizontal_move_valid(self, tetromino, direction):
+    def is_horizontal_move_valid(self, tetromino: "Tetromino", direction: int) -> bool:
+        """Checks whether the queried horizontal movement is valid.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            direction (int): The direction of movement.
+
+        Returns:
+            bool: Is the horizontal move valid.
+        """
+
         for position in tetromino.positions:
             delta = position[0] + direction
 

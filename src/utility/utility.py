@@ -1,12 +1,34 @@
+"""This module provides useful functionalities."""
+
+from typing import TYPE_CHECKING, List, Any
+
 import os
 import json
 
 from src.constants.constants import GRAPH_WIDTH, GRAPH_HEIGHT
 
+if TYPE_CHECKING:
+    from src.graph.graph import Graph
+    from src.graph.tetromino import Tetromino
+
 
 class Utility:
+    """The Utility class is useful for providing methods that are used alot in
+    this program.
+    """
+
     @staticmethod
-    def clamp(value, lower, upper):
+    def clamp(value: int, lower: int, upper: int) -> int:
+        """Clamps a value between a lower bound and an upper bound.
+
+        Args:
+            value (int): The value to be clamped.
+            lower (int): The lower bound.
+            upper (int): The upper bound.
+
+        Returns:
+            int: The clamped value.
+        """
         if value < lower:
             return lower
 
@@ -16,7 +38,16 @@ class Utility:
         return value
 
     @staticmethod
-    def get_json_data(path):
+    def get_json_data(path: str) -> Any:
+        """Returns the deserialized JSON data.
+
+        Args:
+            path (str): The path to the JSON file.
+
+        Returns:
+            Any: The JSON data.
+        """
+
         directory_path = os.path.dirname(os.path.realpath(__file__))
         absolute_path = os.path.join(directory_path, path)
 
@@ -26,7 +57,17 @@ class Utility:
         return data
 
     @staticmethod
-    def get_clockwise_rotations(tetromino, graph):
+    def get_clockwise_rotations(tetromino: "Tetromino", graph: "Graph") -> List[List[int]]:
+        """Get the clockwise rotated position.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            graph (Graph): The graph object.
+
+        Returns:
+            List[int]: List of rotated positions.
+        """
+
         pivot = tetromino.positions[tetromino.origin]
         rotations = []
 
@@ -43,7 +84,17 @@ class Utility:
         return rotations
 
     @staticmethod
-    def get_anti_clockwise_rotations(tetromino, graph):
+    def get_anti_clockwise_rotations(tetromino: "Tetromino", graph: "Graph") -> List[List[int]]:
+        """Get the anti clockwise rotated positions.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+            graph (Graph): The graph object.
+
+        Returns:
+            List[int]: List of rotated positions.
+        """
+
         pivot = tetromino.positions[tetromino.origin]
         rotations = []
 
@@ -60,7 +111,18 @@ class Utility:
         return rotations
 
     @staticmethod
-    def is_valid_rotation(graph, rotation):
+    def is_valid_rotation(graph: "Graph", rotation: List[int]) -> bool:
+        """Returns if the rotation - clockwise or anti-clockwise is valid
+        or not.
+
+        Args:
+            graph (Graph): The graph object.
+            rotation (Tuple[int, int]): The rotated position.
+
+        Returns:
+            bool: If the rotation is valid.
+        """
+
         x, y = rotation
 
         if x < 0 or x >= GRAPH_WIDTH:
