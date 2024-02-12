@@ -1,5 +1,7 @@
 import pygame
+
 from src.graph.graph import Graph
+
 from src.ui.ui import UI
 
 from src.constants.constants import (

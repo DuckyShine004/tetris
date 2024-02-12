@@ -20,7 +20,7 @@ class Tetromino:
 
         self.previous_time = 0
 
-    def update(self):
+    def update(self, keystrokes):
         self.rotate()
         self.move_to_prediction()
 

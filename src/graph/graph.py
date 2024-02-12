@@ -1,6 +1,7 @@
 import copy
 import pygame
 import random
+from src.graph.helper import Helper
 
 from src.graph.cell import Cell
 from src.graph.tetromino import Tetromino
@@ -34,10 +35,17 @@ class Graph:
         self.previous_time = 0
         self.tetromino = None
         self.predictions = []
+        self.helper = Helper(self)
+
+    def is_cell_occupied(self, row, column):
+        return self.cells[column][row].is_occupied
+
+    def set_ghost(self, row, column, is_ghost):
+        self.cells[column][row].is_ghost = is_ghost
 
     def update(self):
         self.handle_tetromino()
-        self.get_prediction()
+        self.helper.set_ghost_positions(self.tetromino)
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -46,12 +54,13 @@ class Graph:
             return
 
         if not self.tetromino.move_vertically():
-            self.handle_row_deletion()
+            self.helper.clear_full_rows()
             self.tetromino = None
 
         self.previous_time = current_time
 
     def get_prediction(self):
+        print(self.tetromino, self.predictions)
         offset = 0
 
         for dy in range(GRAPH_HEIGHT):
@@ -88,47 +97,9 @@ class Graph:
             self.set_tetromino()
             return
 
-        self.tetromino.update()
+        keys = pygame.key.get_pressed()
 
-    def handle_row_deletion(self):
-        rows = []
-
-        for row in range(GRAPH_HEIGHT):
-            is_row_full = True
-
-            for column in range(GRAPH_WIDTH):
-                if not self.cells[column][row].is_occupied:
-                    is_row_full = False
-                    break
-
-            if is_row_full:
-                rows.append(row)
-
-        if not rows:
-            return
-
-        self.delete_rows(rows)
-        self.make_cells_fall(rows[0], len(rows))
-
-    def make_cells_fall(self, first_row, falling_height):
-        for row in range(first_row - 1, -1, -1):
-            for column in range(GRAPH_WIDTH):
-                if not self.cells[column][row].is_occupied:
-                    continue
-
-                color = self.cells[column][row].color
-
-                self.cells[column][row + falling_height].color = color
-                self.cells[column][row + falling_height].is_occupied = True
-
-                self.cells[column][row].color = None
-                self.cells[column][row].is_occupied = False
-
-    def delete_rows(self, rows):
-        for row in rows:
-            for column in range(GRAPH_WIDTH):
-                self.cells[column][row].is_occupied = False
-                self.cells[column][row].color = None
+        self.tetromino.update(keys)
 
     def render(self, surface):
         for y in range(GRAPH_HEIGHT):
