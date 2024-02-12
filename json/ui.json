@@ -1,9 +1,15 @@
 {
     "background": {
         "position": [0, 0],
-        "image": "assets/ui/background/bg2.jpg"
+        "image": "assets/ui/background/bg3.jpg"
     },
     "containers": [
+        {
+            "position": [190, 200],
+            "size": [320, 730],
+            "color": [11, 26, 73],
+            "border": [0, 6]
+        },
         {
             "position": [190, 200],
             "size": [320, 730],
