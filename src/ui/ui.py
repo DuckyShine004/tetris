@@ -1,4 +1,5 @@
 from src.ui.container import Container
+from src.ui.background import Background
 
 from src.utility.utility import Utility
 
@@ -16,8 +17,13 @@ class UI:
 
     def create_elements(self, elements):
         match elements:
+            case "background":
+                self.create_background()
             case "containers":
                 self.create_containers()
+
+    def create_background(self):
+        self.elements.append(Background(**self.data["background"]))
 
     def create_containers(self):
         for container in self.data["containers"]:
