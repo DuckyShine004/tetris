@@ -11,6 +11,7 @@ from src.graph.tetromino import Tetromino
 from src.constants.constants import (
     GRAPH_WIDTH,
     GRAPH_HEIGHT,
+    START_HEIGHT,
     MAX_DELAY,
     CELL_SIZE,
     CELL_OFFSET,
@@ -82,13 +83,11 @@ class Graph:
         keys = pygame.key.get_pressed()
 
         self.graph_helper.update(self.tetromino, keys)
-        # self.tetromino_helper.update(self.tetromino, keys)
-
-        self.tetromino.update(keys)
+        self.tetromino_helper.update(self.tetromino, keys)
 
     def render(self, surface):
         for y in range(GRAPH_HEIGHT):
-            if y <= 3:
+            if y <= START_HEIGHT:
                 continue
 
             for x in range(GRAPH_WIDTH):
