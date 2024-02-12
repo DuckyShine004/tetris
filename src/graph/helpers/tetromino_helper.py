@@ -1,6 +1,6 @@
 import pygame
 
-from src.constants.constants import GRAPH_HEIGHT, GRAPH_WIDTH, MOVEMENT_DELAY
+from src.constants.constants import GRAPH_WIDTH, MOVEMENT_DELAY
 
 
 class TetrominoHelper:
@@ -64,18 +64,6 @@ class TetrominoHelper:
                 return False
 
             if self.graph.is_cell_occupied(position[1], delta):
-                return False
-
-        return True
-
-    def is_vertical_move_valid(self, tetromino):
-        for position in tetromino.positions:
-            delta = position[1] + 1
-
-            if delta >= GRAPH_HEIGHT:
-                return False
-
-            if self.graph.is_cell_occupied(delta, position[0]):
                 return False
 
         return True
