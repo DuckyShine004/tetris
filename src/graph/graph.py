@@ -44,12 +44,14 @@ class Graph:
             return
 
         if not self.tetromino.move_vertically():
+            self.handle_row_deletion()
             self.tetromino = None
 
         self.previous_time = current_time
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
+        index = 0
         tetromino = TETROMINOES[index]
         arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
 
@@ -61,6 +63,46 @@ class Graph:
             return
 
         self.tetromino.update()
+
+    def handle_row_deletion(self):
+        rows = []
+
+        for row in range(GRAPH_HEIGHT):
+            is_row_full = True
+
+            for column in range(GRAPH_WIDTH):
+                if not self.cells[column][row].is_occupied:
+                    is_row_full = False
+                    break
+
+            if is_row_full:
+                rows.append(row)
+
+        if not rows:
+            return
+
+        self.delete_rows(rows)
+        self.make_cells_fall(rows[0], len(rows))
+
+    def make_cells_fall(self, first_row, falling_height):
+        for row in range(first_row - 1, -1, -1):
+            for column in range(GRAPH_WIDTH):
+                if not self.cells[column][row].is_occupied:
+                    continue
+
+                color = self.cells[column][row].color
+
+                self.cells[column][row + falling_height].color = color
+                self.cells[column][row + falling_height].is_occupied = True
+
+                self.cells[column][row].color = None
+                self.cells[column][row].is_occupied = False
+
+    def delete_rows(self, rows):
+        for row in rows:
+            for column in range(GRAPH_WIDTH):
+                self.cells[column][row].is_occupied = False
+                self.cells[column][row].color = None
 
     def render(self, surface):
         for row in self.cells:
