@@ -5,6 +5,7 @@ from src.constants.constants import (
     GRAPH_WIDTH,
     MOVEMENT_DELAY,
 )
+from src.utility.utility import Utility
 
 
 class Tetromino:
@@ -22,7 +23,6 @@ class Tetromino:
 
     def update(self, keys):
         self.rotate()
-        self.move_to_prediction(keys)
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -35,17 +35,11 @@ class Tetromino:
 
         self.previous_time = current_time
 
-    def move_to_prediction(self, keys):
-        if keys[pygame.K_s]:
-            self.color_cells(False)
-            self.positions = list(self.graph.graph_helper.ghost_positions)
-            self.graph.graph_helper.clear_ghost_positions()
-
     def color_cells(self, is_color=True):
         color = self.color if is_color else None
 
         for x, y in self.positions:
-            self.graph.cells[x][y].color = color
+            self.graph.set_color(y, x, color)
 
     def rotate(self):
         keys = pygame.key.get_pressed()
@@ -63,52 +57,22 @@ class Tetromino:
             self.is_rotating_anti_clockwise = False
 
     def rotate_clockwise(self):
-        pivot = self.positions[self.origin]
-        rotations = []
+        rotations = Utility.get_clockwise_rotations(self, self.graph)
 
-        for position in self.positions:
-            x = sum(pivot) - position[1]
-            y = position[0] + pivot[1] - pivot[0]
-            rotation = [x, y]
-
-            if not self.is_valid_rotation(rotation):
-                return
-
-            rotations.append(rotation)
+        if not rotations:
+            return
 
         self.color_cells(False)
         self.positions = list(rotations)
 
     def rotate_anti_clockwise(self):
-        pivot = self.positions[self.origin]
-        rotations = []
+        rotations = Utility.get_anti_clockwise_rotations(self, self.graph)
 
-        for position in self.positions:
-            x = position[1] + pivot[0] - pivot[1]
-            y = sum(pivot) - position[0]
-            rotation = [x, y]
-
-            if not self.is_valid_rotation(rotation):
-                return
-
-            rotations.append(rotation)
+        if not rotations:
+            return
 
         self.color_cells(False)
         self.positions = list(rotations)
-
-    def is_valid_rotation(self, rotation):
-        x, y = rotation
-
-        if x < 0 or x >= GRAPH_WIDTH:
-            return False
-
-        if y < 0 or y >= GRAPH_HEIGHT:
-            return False
-
-        if self.graph.cells[x][y].is_occupied:
-            return False
-
-        return True
 
     def move_horizontally(self):
         keys = pygame.key.get_pressed()

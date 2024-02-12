@@ -60,6 +60,9 @@ class Graph:
     def set_ghost(self, row, column, is_ghost):
         self.cells[column][row].is_ghost = is_ghost
 
+    def set_color(self, row, column, color):
+        self.cells[column][row].color = color
+
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
         tetromino = TETROMINOES[index]
@@ -74,7 +77,7 @@ class Graph:
 
         keys = pygame.key.get_pressed()
 
-        # self.graph_helper.update(self.tetromino, keys)
+        self.graph_helper.update(self.tetromino, keys)
         self.tetromino.update(keys)
 
     def render(self, surface):

@@ -9,8 +9,11 @@ class GraphHelper:
         self.ghost_positions = []
 
     def update(self, tetromino, keys):
+        self.set_ghost_positions(tetromino)
+
         if keys[pygame.K_s]:
-            self.graph.set_color(False)
+            tetromino.color_cells(False)
+            self.clear_ghost_positions()
             tetromino.positions = list(self.ghost_positions)
 
     def set_ghost_positions(self, tetromino):
@@ -32,10 +35,6 @@ class GraphHelper:
 
         self.set_new_ghost_positions(tetromino.positions, height)
 
-    def clear_ghost_positions(self):
-        for x, y in self.ghost_positions:
-            self.graph.set_ghost(y, x, False)
-
     def set_new_ghost_positions(self, positions, height):
         self.clear_ghost_positions()
         self.ghost_positions = [[position[0], position[1] + height - 1] for position in positions]
@@ -53,6 +52,10 @@ class GraphHelper:
         self.graph.cells[column][row].color = None
         self.graph.cells[column][delta].is_occupied = True
         self.graph.cells[column][row].is_occupied = False
+
+    def clear_ghost_positions(self):
+        for x, y in self.ghost_positions:
+            self.graph.set_ghost(y, x, False)
 
     def clear_full_rows(self):
         rows = []
