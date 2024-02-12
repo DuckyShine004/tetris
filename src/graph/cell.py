@@ -1,6 +1,6 @@
 import pygame
 
-from src.constants.constants import CELL_SIZE, BLACK
+from src.constants.constants import CELL_SIZE, BORDER_SIZE, OUTLINE
 
 
 class Cell:
@@ -14,5 +14,5 @@ class Cell:
         if not self.color:
             return
 
-        pygame.draw.rect(surface, self.color, self.rect)
-        pygame.draw.rect(surface, BLACK, self.rect, 2)
+        pygame.draw.rect(surface, self.color, self.rect, 0, BORDER_SIZE)
+        pygame.draw.rect(surface, OUTLINE, self.rect, 2, BORDER_SIZE)

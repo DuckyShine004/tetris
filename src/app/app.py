@@ -1,8 +1,10 @@
 import pygame
 from src.graph.graph import Graph
+from src.ui.ui import UI
 
 from src.constants.constants import (
     SURFACE_COLOR,
+    UI_PATH,
     WIDTH,
     HEIGHT,
     FPS,
@@ -15,6 +17,7 @@ class App:
         self.surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.is_running = True
 
+        self.ui = UI(UI_PATH)
         self.graph = Graph()
 
     def run(self):
@@ -32,9 +35,11 @@ class App:
             clock.tick(FPS)
 
     def update(self):
+        self.ui.update()
         self.graph.update()
 
     def render(self):
+        self.ui.render(self.surface)
         self.graph.render(self.surface)
 
     def handle_events(self):

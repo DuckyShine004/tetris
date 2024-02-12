@@ -104,6 +104,9 @@ class Graph:
                 self.cells[column][row].color = None
 
     def render(self, surface):
-        for row in self.cells:
-            for cell in row:
-                cell.render(surface)
+        for y in range(GRAPH_HEIGHT):
+            if y <= 3:
+                continue
+
+            for x in range(GRAPH_WIDTH):
+                self.cells[x][y].render(surface)

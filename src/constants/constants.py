@@ -1,5 +1,5 @@
 # DISPLAY
-SURFACE_COLOR = (255, 255, 255)
+SURFACE_COLOR = (11, 26, 73)
 WIDTH = 720
 HEIGHT = 1080
 FPS = 60
@@ -93,10 +93,13 @@ TETROMINO_ARGUMENTS = {
         "color": (240, 0, 0),
     },
 }
+
 # CELL
 CELL_SIZE = (30, 30)
-CELL_OFFSET = (0, 0)
-BLACK = (0, 0, 0)
+BORDER_SIZE = 3
+CELL_OFFSET = (200, 80)
+OUTLINE = (11, 26, 73)
 
 # PATHS
+UI_PATH = "../../json/ui.json"
 MUSIC_PATH = "assets/music/loop.wav"
