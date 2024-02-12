@@ -1,12 +1,10 @@
-import copy
 import pygame
-import random
-
-from src.graph.helpers.graph_helper import GraphHelper
-from src.graph.helpers.tetromino_helper import TetrominoHelper
 
 from src.graph.cell import Cell
 from src.graph.tetromino import Tetromino
+
+from src.graph.helpers.graph_helper import GraphHelper
+from src.graph.helpers.tetromino_helper import TetrominoHelper
 
 from src.constants.constants import (
     GRAPH_WIDTH,
