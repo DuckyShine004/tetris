@@ -99,6 +99,7 @@ CELL_SIZE = (30, 30)
 BORDER_SIZE = 3
 CELL_OFFSET = (200, 80)
 OUTLINE = (11, 26, 73)
+PREDICTION = (255, 255, 255)
 
 # PATHS
 UI_PATH = "../../json/ui.json"
