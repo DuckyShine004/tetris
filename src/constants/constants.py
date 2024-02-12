@@ -1,3 +1,27 @@
+"""This module contains application constants.
+
+Attributes:
+    BORDER_SIZE (int): The size of the cell's border.
+    CAPTION (str): The application name.
+    CELL_OFFSET (tuple): Offset of each cell.
+    CELL_SIZE (tuple): The cell's size.
+    FPS (int): Frames per second.
+    GRAPH_HEIGHT (int): The graph's height.
+    GRAPH_WIDTH (int): The graph's width.
+    HEIGHT (int): The display's height.
+    MAX_DELAY (int): The delay of the vertical movement.
+    MOVEMENT_DELAY (int): The delay of the horizontal movement.
+    MUSIC_PATH (str): The path to the music.
+    OUTLINE (tuple): The outline color of the cell.
+    PREDICTION (tuple): The prediction outline.
+    START_HEIGHT (int): The height at which the tetrominoes are rendered.
+    SURFACE_COLOR (tuple): The background default color.
+    TETROMINO_ARGUMENTS (dict): Dictionary of tetrominoes.
+    TETROMINOES (list): Tetromino string identifiers.
+    UI_PATH (str): The path to the ui.
+    WIDTH (int): The display width.
+"""
+
 # DISPLAY
 SURFACE_COLOR = (11, 26, 73)
 WIDTH = 720
