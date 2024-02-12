@@ -1,6 +1,5 @@
-import random
-
-from src.constants.constants import TETROMINO_ARGUMENTS, TETROMINOES
+import os
+import json
 
 
 class Utility:
@@ -13,3 +12,13 @@ class Utility:
             return upper
 
         return value
+
+    @staticmethod
+    def get_json_data(path):
+        directory_path = os.path.dirname(os.path.realpath(__file__))
+        absolute_path = os.path.join(directory_path, path)
+
+        with open(absolute_path, "r", encoding="utf-8") as file:
+            data = json.load(file)
+
+        return data
