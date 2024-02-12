@@ -2,12 +2,16 @@ import copy
 import pygame
 import random
 
+from src.graph.helpers.graph_helper import GraphHelper
+from src.graph.helpers.tetromino_helper import TetrominoHelper
+
 from src.graph.cell import Cell
 from src.graph.tetromino import Tetromino
 
 from src.constants.constants import (
     GRAPH_WIDTH,
     GRAPH_HEIGHT,
+    START_HEIGHT,
     MAX_DELAY,
     CELL_SIZE,
     CELL_OFFSET,
@@ -33,11 +37,12 @@ class Graph:
         self.delay = MAX_DELAY
         self.previous_time = 0
         self.tetromino = None
-        self.predictions = []
+
+        self.graph_helper = GraphHelper(self)
+        self.tetromino_helper = TetrominoHelper(self)
 
     def update(self):
         self.handle_tetromino()
-        self.get_prediction()
 
         current_time = pygame.time.get_ticks()
         delta_time = current_time - self.previous_time
@@ -46,35 +51,22 @@ class Graph:
             return
 
         if not self.tetromino.move_vertically():
-            self.handle_row_deletion()
+            self.graph_helper.clear_full_rows()
             self.tetromino = None
 
         self.previous_time = current_time
 
-    def get_prediction(self):
-        offset = 0
+    def is_cell_occupied(self, row, column):
+        return self.cells[column][row].is_occupied
 
-        for dy in range(GRAPH_HEIGHT):
-            offset = dy
-            is_prediction_found = False
+    def set_occupied(self, row, column, is_occupied):
+        self.cells[column][row].is_occupied = is_occupied
 
-            for position in self.tetromino.positions:
-                delta = dy + position[1]
+    def set_ghost(self, row, column, is_ghost):
+        self.cells[column][row].is_ghost = is_ghost
 
-                if delta >= GRAPH_HEIGHT or self.cells[position[0]][delta].is_occupied:
-                    is_prediction_found = True
-                    break
-
-            if is_prediction_found:
-                break
-
-        for x, y in self.predictions:
-            self.cells[x][y].is_prediction = False
-
-        self.predictions = [[positions[0], positions[1] + offset - 1] for positions in self.tetromino.positions]
-
-        for x, y in self.predictions:
-            self.cells[x][y].is_prediction = True
+    def set_color(self, row, column, color):
+        self.cells[column][row].color = color
 
     def set_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
@@ -88,51 +80,14 @@ class Graph:
             self.set_tetromino()
             return
 
-        self.tetromino.update()
+        keys = pygame.key.get_pressed()
 
-    def handle_row_deletion(self):
-        rows = []
-
-        for row in range(GRAPH_HEIGHT):
-            is_row_full = True
-
-            for column in range(GRAPH_WIDTH):
-                if not self.cells[column][row].is_occupied:
-                    is_row_full = False
-                    break
-
-            if is_row_full:
-                rows.append(row)
-
-        if not rows:
-            return
-
-        self.delete_rows(rows)
-        self.make_cells_fall(rows[0], len(rows))
-
-    def make_cells_fall(self, first_row, falling_height):
-        for row in range(first_row - 1, -1, -1):
-            for column in range(GRAPH_WIDTH):
-                if not self.cells[column][row].is_occupied:
-                    continue
-
-                color = self.cells[column][row].color
-
-                self.cells[column][row + falling_height].color = color
-                self.cells[column][row + falling_height].is_occupied = True
-
-                self.cells[column][row].color = None
-                self.cells[column][row].is_occupied = False
-
-    def delete_rows(self, rows):
-        for row in rows:
-            for column in range(GRAPH_WIDTH):
-                self.cells[column][row].is_occupied = False
-                self.cells[column][row].color = None
+        self.graph_helper.update(self.tetromino, keys)
+        self.tetromino_helper.update(self.tetromino, keys)
 
     def render(self, surface):
         for y in range(GRAPH_HEIGHT):
-            if y <= 3:
+            if y <= START_HEIGHT:
                 continue
 
             for x in range(GRAPH_WIDTH):
