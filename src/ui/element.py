@@ -2,6 +2,8 @@
 
 from abc import ABC, abstractmethod
 
+from typing import List
+
 import pygame
 
 
@@ -22,9 +24,9 @@ class Element(ABC):
             **kwargs: Keyworded, variable-length argument dictionary.
         """
 
-        self.id = kwargs.get("id", "")
-        self.position = kwargs["position"]
-        self.z_buffer = kwargs["z-buffer"]
+        self.id: str = kwargs.get("id", "")
+        self.position: List[int] = kwargs["position"]
+        self.z_buffer: int = kwargs["z-buffer"]
 
     @abstractmethod
     def render(self, surface: pygame.Surface) -> None:
