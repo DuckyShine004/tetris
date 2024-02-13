@@ -1,4 +1,5 @@
-"""This module is an abstract parent class for UI components."""
+"""This module is an abstract parent class for UI components.
+"""
 
 from abc import ABC, abstractmethod
 
@@ -11,7 +12,7 @@ class Element(ABC):
     """The Element class removes redundant assignments, and unifies all child
     components under on parent class.
 
-    Attributes:
+    Deleted Attributes:
         id (str): The component's identifier.
         position (list): The component's position.
         z_buffer (int): The component's z-buffer.
@@ -34,6 +35,9 @@ class Element(ABC):
 
         Args:
             surface (pygame.Surface): The display's surface.
+
+        Returns:
+            None: Nothing is returned.
         """
 
-        pass
+        return
