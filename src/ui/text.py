@@ -6,7 +6,12 @@ import pygame
 
 from src.ui.element import Element
 
-from src.constants.constants import FONT_SIZE, FONT_COLOR
+from src.constants.constants import (
+    DIFFERENCE,
+    FONT_SIZE,
+    FONT_COLOR,
+    MIN_DELAY,
+)
 
 
 class Text(Element):
@@ -39,17 +44,25 @@ class Text(Element):
         self.surface: pygame.Surface = self.font.render(self.text, True, self.color)
         self.rect: pygame.Rect = self.surface.get_rect(center=self.position)
 
-    def increment(self, count: int) -> None:
+    def increment(self, graph, count: int) -> None:
         """Increment the player's current score.
 
         Args:
             count (int): How much to increment the score count by.
         """
 
-        self.text = str(int(self.text) + count)
+        score = int(self.text)
+
+        if self.is_score_a_mulitple_of_ten(score, count):
+            graph.delay = max(MIN_DELAY, graph.delay - DIFFERENCE)
+
+        self.text = str(score + count)
         self.surface = self.font.render(self.text, True, self.color)
         self.rect = self.surface.get_rect()
         self.rect.center = self.position
+
+    def is_score_a_mulitple_of_ten(self, score, count):
+        return count >= 10 - (score % 10)
 
     def render(self, surface: pygame.Surface) -> None:
         """Renders the text component.

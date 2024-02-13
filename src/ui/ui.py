@@ -77,7 +77,7 @@ class UI:
         for text in self.data["texts"]:
             self.elements.append(Text(**text))
 
-    def increment_score(self, count: int) -> None:
+    def increment_score(self, graph, count: int) -> None:
         """Increments the player's score by the input count.
 
         Args:
@@ -88,7 +88,7 @@ class UI:
             if element.id != SCORE_ID:
                 continue
 
-            element.increment(count)
+            element.increment(graph, count)
 
     def render(self, surface: pygame.Surface) -> None:
         """Renders the user interface.

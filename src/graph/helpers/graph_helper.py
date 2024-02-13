@@ -163,7 +163,7 @@ class GraphHelper:
         start = rows[0]
         height = len(rows)
 
-        self.ui.increment_score(height)
+        self.ui.increment_score(self.graph, height)
 
         for row in range(start - 1, -1, -1):
             for column in range(GRAPH_WIDTH):
