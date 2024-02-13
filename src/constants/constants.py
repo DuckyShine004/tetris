@@ -5,6 +5,8 @@ Attributes:
     CAPTION (str): The application name.
     CELL_OFFSET (tuple): Offset of each cell.
     CELL_SIZE (tuple): The cell's size.
+    FONT_COLOR (tuple): The default font color.
+    FONT_SIZE (int): The default font size.
     FPS (int): Frames per second.
     GRAPH_HEIGHT (int): The graph's height.
     GRAPH_WIDTH (int): The graph's width.
@@ -14,6 +16,8 @@ Attributes:
     MUSIC_PATH (str): The path to the music.
     OUTLINE (tuple): The outline color of the cell.
     PREDICTION (tuple): The prediction outline.
+    SCORE_ID (str): The score component id.
+    STACK_SIZE (tuple): The stack size.
     START_HEIGHT (int): The height at which the tetrominoes are rendered.
     SURFACE_COLOR (tuple): The background default color.
     TETROMINO_ARGUMENTS (dict): Dictionary of tetrominoes.
