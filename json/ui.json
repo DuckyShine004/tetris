@@ -39,14 +39,14 @@
         {
             "id": "txt1",
             "text": "Score",
-            "position": [80, 215],
+            "position": [120, 225],
             "size": 40,
             "color": [11, 26, 73]
         },
         {
             "id": "txt2",
-            "text": "0",
-            "position": [112.5, 267.5],
+            "text": "9",
+            "position": [120, 280],
             "size": 40,
             "color": [255,255,255]
         }

@@ -20,13 +20,14 @@ class GraphHelper:
         graph (Graph): The graph object.
     """
 
-    def __init__(self, graph: "Graph") -> None:
+    def __init__(self, graph: "Graph", ui) -> None:
         """Initializes the GraphHelper object.
 
         Args:
             graph (Graph): The graph object.
         """
 
+        self.ui = ui
         self.graph: "Graph" = graph
         self.ghost_positions: List[List[int]] = []
 
@@ -154,6 +155,8 @@ class GraphHelper:
 
         start = rows[0]
         height = len(rows)
+
+        self.ui.increment_score(height)
 
         for row in range(start - 1, -1, -1):
             for column in range(GRAPH_WIDTH):

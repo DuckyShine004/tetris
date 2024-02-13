@@ -31,7 +31,7 @@ class Tetromino:
 
         self.graph: "Graph" = graph
 
-        self.positions: List[int] = kwargs["positions"]
+        self.positions: List[List[int]] = kwargs["positions"]
         self.origin: int = kwargs["origin"]
         self.color: List[int] = kwargs["color"]
 

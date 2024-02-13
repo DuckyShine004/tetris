@@ -36,7 +36,7 @@ class App:
         self.is_running: bool = True
 
         self.ui: UI = UI(UI_PATH)
-        self.graph: Graph = Graph()
+        self.graph: Graph = Graph(self.ui)
 
     def run(self) -> None:
         """The main application loop."""

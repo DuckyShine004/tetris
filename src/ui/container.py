@@ -3,6 +3,7 @@ import pygame
 
 class Container:
     def __init__(self, **kwargs):
+        self.id = kwargs.get("id", "")
         self.rect = pygame.Rect(*kwargs["position"], *kwargs["size"])
         self.color = kwargs["color"]
         self.border = kwargs.get("border", [])
