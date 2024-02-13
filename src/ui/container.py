@@ -17,7 +17,7 @@ class Container(Element):
     """
 
     def __init__(self, **kwargs) -> None:
-        """Initializes the container object.
+        """Initializes the Container object.
 
         Args:
             **kwargs: Keyworded, variable-length argument dictionary.

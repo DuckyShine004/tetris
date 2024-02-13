@@ -18,7 +18,7 @@ class Element(ABC):
     """
 
     def __init__(self, **kwargs) -> None:
-        """Initializes the element class.
+        """Initializes the Element class.
 
         Args:
             **kwargs: Keyworded, variable-length argument dictionary.
