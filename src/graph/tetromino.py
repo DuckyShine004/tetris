@@ -25,6 +25,8 @@ class Tetromino:
         graph (Graph): The graph object.
         origin (int): The tetromino's origin position.
         positions (list): The positions of the tetromino cells.
+        stack_positions(list): The positions of the stack tetromino.
+        stack_offset(list): The offset of the stack tetromino.
     """
 
     def __init__(self, graph: "Graph", **kwargs) -> None:
@@ -137,7 +139,13 @@ class Tetromino:
 
         return True
 
-    def render_stack(self, surface):
+    def render_stack(self, surface: pygame.Surface) -> None:
+        """Renders the tetromino stack.
+
+        Args:
+            surface (pygame.Surface): The display's surface.
+        """
+
         for x, y in self.stack_positions:
             dx = x + self.stack_offset[0]
             dy = y + self.stack_offset[1]
