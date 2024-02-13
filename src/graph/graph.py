@@ -38,7 +38,7 @@ class Graph:
         tetromino_helper (TetrominoHelper): The TetrominoHelper object.
     """
 
-    def __init__(self) -> None:
+    def __init__(self, ui) -> None:
         """Initializes the graph object."""
 
         self.cells = [
@@ -57,7 +57,7 @@ class Graph:
         self.previous_time: int = 0
         self.tetromino: Optional[Tetromino] = None
 
-        self.graph_helper: GraphHelper = GraphHelper(self)
+        self.graph_helper: GraphHelper = GraphHelper(self, ui)
         self.tetromino_helper: TetrominoHelper = TetrominoHelper(self)
 
     def update(self) -> None:
@@ -132,6 +132,7 @@ class Graph:
         """Create and set a new tetromino."""
 
         index = random.randint(0, len(TETROMINOES) - 1)
+        index = 0
         tetromino = TETROMINOES[index]
         arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
 
