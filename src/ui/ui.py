@@ -41,7 +41,7 @@ class UI:
         for elements in self.data.keys():
             self.create_elements(elements)
 
-    def create_elements(self, elements: List[Element]) -> None:
+    def create_elements(self, elements: str) -> None:
         """Create elements. Elements will be created based on the contents
         of the JSON data.
 
