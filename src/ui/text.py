@@ -5,7 +5,7 @@ from src.constants.constants import FONT_SIZE, FONT_COLOR
 
 class Text:
     def __init__(self, **kwargs) -> None:
-        self.id = kwargs["id"]
+        self.id = kwargs.get("id", "")
         self.position = kwargs["position"]
         self.text = kwargs.get("text", "")
 
