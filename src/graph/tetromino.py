@@ -21,6 +21,7 @@ class Tetromino:
     contains useful methods that alters the application states.
 
     Attributes:
+        id (str): The identifier of the tetromino.
         color (list): The color of the tetromino.
         graph (Graph): The graph object.
         origin (int): The tetromino's origin position.
@@ -39,6 +40,7 @@ class Tetromino:
 
         self.graph: "Graph" = graph
 
+        self.id: str = kwargs.get("id", "")
         self.positions: List[List[int]] = kwargs["positions"]
         self.origin: int = kwargs["origin"]
         self.color: List[int] = kwargs["color"]
