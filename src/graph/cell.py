@@ -23,7 +23,13 @@ class Cell:
         rect (pygame.Rect): The hitbox of the cell.
     """
 
-    def __init__(self, x: int, y: int, color: Optional[List[int]] = None, is_moving: Optional[bool] = False) -> None:
+    def __init__(
+        self,
+        x: int,
+        y: int,
+        color: Optional[List[int]] = None,
+        is_moving: Optional[bool] = False,
+    ) -> None:
         """Initializes the cell object.
 
         Args:

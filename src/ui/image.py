@@ -1,18 +1,41 @@
+"""This module is a way to create a image UI component."""
+
 import pygame
 
+from src.ui.element import Element
 
-class Image:
-    def __init__(self, **kwargs):
-        self.id = kwargs.get("id", "")
-        self.image = pygame.image.load(kwargs["image"])
-        self.image = pygame.transform.scale(self.image, kwargs["size"])
+
+class Image(Element):
+    """The Image class defines a 'image' UI component.
+
+
+    Attributes:
+        image (pygame.Surface): The image of the component.
+        rect (pygame.Rect): The hitbox of the component.
+    """
+
+    def __init__(self, **kwargs) -> None:
+        """Initializes the Image object.
+
+        Args:
+            **kwargs: Keyworded, variable-length argument dictionary.
+        """
+
+        super().__init__(**kwargs)
+
+        self.image: pygame.Surface = pygame.image.load(kwargs["image"])
+        self.image: pygame.Surface = pygame.transform.scale(self.image, kwargs["size"])
 
         if kwargs["topleft"]:
-            self.rect = self.image.get_rect(topleft=kwargs["position"])
+            self.rect: pygame.Rect = self.image.get_rect(topleft=kwargs["position"])
         else:
-            self.rect = self.image.get_rect(center=kwargs["position"])
+            self.rect: pygame.Rect = self.image.get_rect(center=kwargs["position"])
 
-        self.z_buffer = kwargs["z-buffer"]
+    def render(self, surface: pygame.Surface) -> None:
+        """Renders the image component.
 
-    def render(self, surface):
+        Args:
+            surface (pygame.Surface): The display's surface.
+        """
+
         surface.blit(self.image, self.rect)
