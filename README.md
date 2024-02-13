@@ -1,6 +1,8 @@
 # tetris
 A challenge to see how fast I can code tetris. Made with pygame in 3-4 days.
 
+**WARNING:** There is currently no game over condition, why? Because I am too lazy to implement the UI for the game over screen. You can simply press `r` on your keyboard to restart.
+
 ### Built with
 
 [Python.io]: https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54
@@ -17,8 +19,6 @@ A challenge to see how fast I can code tetris. Made with pygame in 3-4 days.
 ## Getting Started
 
 To guarantee a seamless experience moving forward, please read and follow the installation instructions carefully.
-
-**WARNING:** There is currently no game over condition, why? Because I am too lazy to implement the UI for the game over screen. You can simply press `r` on your keyboard to restart.
 
 ### Installation
 
