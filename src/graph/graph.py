@@ -35,6 +35,7 @@ class Graph:
         max_delay (int): The maximum delay of vertical movement.
         previous_time (int): The previous frame.
         tetromino (Tetromino): The tetromino object.
+        tetromino_stack (list): The tetromino stack.
         tetromino_helper (TetrominoHelper): The TetrominoHelper object.
     """
 
@@ -128,7 +129,13 @@ class Graph:
 
         self.cells[column][row].color = color
 
-    def get_tetromino(self):
+    def get_tetromino(self) -> Tetromino:
+        """Returns a random instance of a tetromino.
+
+        Returns:
+            Tetromino: The tetromino object.
+        """
+
         index = random.randint(0, len(TETROMINOES) - 1)
         tetromino = TETROMINOES[index]
         arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
@@ -136,7 +143,7 @@ class Graph:
         return Tetromino(self, **arguments)
 
     def set_tetromino(self) -> None:
-        """Create and set a new tetromino."""
+        """Sets the current tetromino."""
 
         self.tetromino = self.tetromino_stack.pop(0)
         self.tetromino_stack.append(self.get_tetromino())
