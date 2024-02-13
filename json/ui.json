@@ -60,10 +60,17 @@
         },
         {
             "position": [520, 200],
-            "size": [120, 300],
+            "size": [120, 115],
             "color": [255, 255, 255],
             "border": [0, 4],
             "z-buffer": 2
+        },
+        {
+            "position": [525, 250],
+            "size": [110, 60],
+            "color": [11, 26, 73],
+            "border": [0, 0],
+            "z-buffer": 1
         },
         {
             "position": [60, 200],
@@ -120,6 +127,13 @@
         {
             "text": "Rotation",
             "position": [100, 485],
+            "size": 40,
+            "color": [11, 26, 73],
+            "z-buffer": 0
+        },
+        {
+            "text": "Next",
+            "position": [580, 225],
             "size": 40,
             "color": [11, 26, 73],
             "z-buffer": 0

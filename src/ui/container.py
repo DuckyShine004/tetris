@@ -9,6 +9,8 @@ class Container:
         self.border = kwargs.get("border", [])
         self.z_buffer = kwargs["z-buffer"]
 
+        print(self.rect.center)
+
     def render(self, surface):
         if not self.border:
             pygame.draw.rect(surface, self.color, self.rect)

@@ -56,7 +56,7 @@ class Graph:
         self.delay: int = MAX_DELAY
         self.previous_time: int = 0
         self.tetromino: Optional[Tetromino] = None
-
+        self.tetromino_stack: List[Tetromino] = [self.get_tetromino()]
         self.graph_helper: GraphHelper = GraphHelper(self, ui)
         self.tetromino_helper: TetrominoHelper = TetrominoHelper(self)
 
@@ -128,15 +128,18 @@ class Graph:
 
         self.cells[column][row].color = color
 
-    def set_tetromino(self) -> None:
-        """Create and set a new tetromino."""
-
+    def get_tetromino(self):
         index = random.randint(0, len(TETROMINOES) - 1)
-        index = 0
         tetromino = TETROMINOES[index]
         arguments = copy.deepcopy(TETROMINO_ARGUMENTS[tetromino])
 
-        self.tetromino = Tetromino(self, **arguments)
+        return Tetromino(self, **arguments)
+
+    def set_tetromino(self) -> None:
+        """Create and set a new tetromino."""
+
+        self.tetromino = self.tetromino_stack.pop(0)
+        self.tetromino_stack.append(self.get_tetromino())
 
     def handle_tetromino(self) -> None:
         """Handle the current tetromino. If there is no tetromino, create one.
@@ -167,3 +170,5 @@ class Graph:
 
             for x in range(GRAPH_WIDTH):
                 self.cells[x][y].render(surface)
+
+        self.tetromino_stack[0].render_stack(surface)
