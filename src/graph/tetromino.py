@@ -2,9 +2,15 @@
 
 from typing import TYPE_CHECKING, List, Optional
 
+import pygame
+
 from src.utility.utility import Utility
 
-from src.constants.constants import GRAPH_HEIGHT
+from src.constants.constants import (
+    BORDER_SIZE,
+    GRAPH_HEIGHT,
+    STACK_SIZE,
+)
 
 if TYPE_CHECKING:
     from src.graph.graph import Graph
@@ -34,6 +40,8 @@ class Tetromino:
         self.positions: List[List[int]] = kwargs["positions"]
         self.origin: int = kwargs["origin"]
         self.color: List[int] = kwargs["color"]
+        self.stack_positions: List[List[int]] = kwargs["stack_positions"]
+        self.stack_offset: List[int] = kwargs["stack_offset"]
 
     def occupy_cells(self, is_occupied: bool) -> None:
         """Change the occupation status of cells based on the current cells occupied
@@ -128,3 +136,13 @@ class Tetromino:
                 return False
 
         return True
+
+    def render_stack(self, surface):
+        for x, y in self.stack_positions:
+            dx = x + self.stack_offset[0]
+            dy = y + self.stack_offset[1]
+
+            rect = pygame.Rect(dx, dy, *STACK_SIZE)
+            rect.center = (dx, dy)
+
+            pygame.draw.rect(surface, self.color, rect, 0, BORDER_SIZE)

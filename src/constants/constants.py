@@ -55,6 +55,13 @@ TETROMINO_ARGUMENTS = {
             [5, 2],
             [5, 3],
         ],
+        "stack_positions": [
+            [580, 280],
+            [595, 280],
+            [610, 280],
+            [625, 280],
+        ],
+        "stack_offset": (-22.5, 0),
         "origin": 2,
         "color": (0, 240, 240),
     },
@@ -65,6 +72,13 @@ TETROMINO_ARGUMENTS = {
             [4, 3],
             [5, 3],
         ],
+        "stack_positions": [
+            [580, 280],
+            [580, 295],
+            [595, 280],
+            [595, 295],
+        ],
+        "stack_offset": (-7.5, -7.5),
         "origin": 3,
         "color": (240, 240, 0),
     },
@@ -75,6 +89,13 @@ TETROMINO_ARGUMENTS = {
             [6, 3],
             [5, 2],
         ],
+        "stack_positions": [
+            [580, 280],
+            [595, 280],
+            [610, 280],
+            [595, 265],
+        ],
+        "stack_offset": (-15, 7.5),
         "origin": 1,
         "color": (160, 0, 240),
     },
@@ -85,6 +106,13 @@ TETROMINO_ARGUMENTS = {
             [5, 3],
             [6, 3],
         ],
+        "stack_positions": [
+            [580, 280],
+            [595, 280],
+            [610, 280],
+            [580, 265],
+        ],
+        "stack_offset": (-15, 7.5),
         "origin": 2,
         "color": (0, 0, 240),
     },
@@ -95,6 +123,13 @@ TETROMINO_ARGUMENTS = {
             [6, 3],
             [6, 2],
         ],
+        "stack_positions": [
+            [580, 280],
+            [595, 280],
+            [610, 280],
+            [610, 265],
+        ],
+        "stack_offset": (-15, 7.5),
         "origin": 1,
         "color": (240, 160, 0),
     },
@@ -105,6 +140,13 @@ TETROMINO_ARGUMENTS = {
             [5, 2],
             [6, 2],
         ],
+        "stack_positions": [
+            [580, 280],
+            [595, 280],
+            [595, 265],
+            [610, 265],
+        ],
+        "stack_offset": (-15, 7.5),
         "origin": 1,
         "color": (0, 240, 0),
     },
@@ -115,6 +157,13 @@ TETROMINO_ARGUMENTS = {
             [5, 3],
             [6, 3],
         ],
+        "stack_positions": [
+            [580, 265],
+            [595, 265],
+            [595, 280],
+            [610, 280],
+        ],
+        "stack_offset": (-15, 7.5),
         "origin": 2,
         "color": (240, 0, 0),
     },
@@ -126,6 +175,7 @@ BORDER_SIZE = 3
 CELL_OFFSET = (200, 80)
 OUTLINE = (11, 26, 73)
 PREDICTION = (255, 255, 255)
+STACK_SIZE = (15, 15)
 
 # FONT
 FONT_SIZE = 50
