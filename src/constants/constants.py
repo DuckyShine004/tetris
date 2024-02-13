@@ -127,6 +127,10 @@ CELL_OFFSET = (200, 80)
 OUTLINE = (11, 26, 73)
 PREDICTION = (255, 255, 255)
 
+# FONT
+FONT_SIZE = 50
+FONT_COLOR = (11, 26, 73)
+
 # PATHS
 UI_PATH = "../../json/ui.json"
 MUSIC_PATH = "assets/music/loop.wav"
