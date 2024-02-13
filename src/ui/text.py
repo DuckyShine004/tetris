@@ -1,12 +1,14 @@
 import pygame
 
+from src.ui.element import Element
+
 from src.constants.constants import FONT_SIZE, FONT_COLOR
 
 
-class Text:
+class Text(Element):
     def __init__(self, **kwargs) -> None:
-        self.id = kwargs.get("id", "")
-        self.position = kwargs["position"]
+        super().__init__(**kwargs)
+
         self.text = kwargs.get("text", "")
 
         path = kwargs.get("path", None)
@@ -16,7 +18,6 @@ class Text:
         self.font = pygame.font.Font(path, size)
         self.surface = self.font.render(self.text, True, self.color)
         self.rect = self.surface.get_rect(center=self.position)
-        self.z_buffer = kwargs["z-buffer"]
 
     def increment(self, count):
         self.text = str(int(self.text) + count)

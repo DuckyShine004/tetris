@@ -1,15 +1,15 @@
 import pygame
 
+from src.ui.element import Element
 
-class Container:
+
+class Container(Element):
     def __init__(self, **kwargs):
-        self.id = kwargs.get("id", "")
+        super().__init__(**kwargs)
+
         self.rect = pygame.Rect(*kwargs["position"], *kwargs["size"])
         self.color = kwargs["color"]
         self.border = kwargs.get("border", [])
-        self.z_buffer = kwargs["z-buffer"]
-
-        print(self.rect.center)
 
     def render(self, surface):
         if not self.border:
