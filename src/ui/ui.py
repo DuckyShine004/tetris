@@ -1,6 +1,6 @@
 """This module is useful for loading user interfaces."""
 
-from typing import List, Dict, Any
+from typing import TYPE_CHECKING, List, Dict, Any
 
 import pygame
 
@@ -12,6 +12,9 @@ from src.ui.text import Text
 from src.utility.utility import Utility
 
 from src.constants.constants import SCORE_ID
+
+if TYPE_CHECKING:
+    from src.graph.graph import Graph
 
 
 class UI:
@@ -46,7 +49,7 @@ class UI:
         of the JSON data.
 
         Args:
-            elements (Element): List of elements loaded from the JSON file.
+            elements (str): List of elements loaded from the JSON file.
         """
 
         match elements:
@@ -77,10 +80,11 @@ class UI:
         for text in self.data["texts"]:
             self.elements.append(Text(**text))
 
-    def increment_score(self, count: int) -> None:
+    def increment_score(self, graph: "Graph", count: int) -> None:
         """Increments the player's score by the input count.
 
         Args:
+            graph (Graph): The graph object.
             count (int): How much to increment the score count by.
         """
 
@@ -88,7 +92,7 @@ class UI:
             if element.id != SCORE_ID:
                 continue
 
-            element.increment(count)
+            element.increment(graph, count)
 
     def render(self, surface: pygame.Surface) -> None:
         """Renders the user interface.

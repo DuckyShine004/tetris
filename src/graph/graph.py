@@ -32,7 +32,6 @@ class Graph:
         cells (list): List of graph cells.
         delay (int): The vertical movement delay.
         graph_helper (GraphHelper): The GraphHelper object.
-        max_delay (int): The maximum delay of vertical movement.
         previous_time (int): The previous frame.
         tetromino (Tetromino): The tetromino object.
         tetromino_stack (list): The tetromino stack.
@@ -53,7 +52,6 @@ class Graph:
             for x in range(GRAPH_WIDTH)
         ]
 
-        self.max_delay: int = MAX_DELAY
         self.delay: int = MAX_DELAY
         self.previous_time: int = 0
         self.tetromino: Optional[Tetromino] = None
