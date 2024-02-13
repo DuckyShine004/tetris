@@ -7,6 +7,7 @@ class Container:
         self.rect = pygame.Rect(*kwargs["position"], *kwargs["size"])
         self.color = kwargs["color"]
         self.border = kwargs.get("border", [])
+        self.z_buffer = kwargs["z-buffer"]
 
     def render(self, surface):
         if not self.border:

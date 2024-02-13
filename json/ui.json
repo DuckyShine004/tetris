@@ -1,38 +1,97 @@
 {
-    "background": {
-        "position": [0, 0],
-        "image": "assets/ui/background/bg3.jpg"
-    },
+    "images": [
+        {
+            "position": [0, 0],
+            "size": [720, 1080],
+            "image": "assets/ui/background/bg3.jpg",
+            "topleft": true,
+            "z-buffer": 999
+        },
+        {
+            "position": [55, 410],
+            "size": [40, 40],
+            "image": "assets/ui/instructions/a.png",
+            "topleft": false,
+            "z-buffer": 0
+        },
+        {
+            "position": [100, 410],
+            "size": [40, 40],
+            "image": "assets/ui/instructions/s.png",
+            "topleft": false,
+            "z-buffer": 0
+        },
+        {
+            "position": [145, 410],
+            "size": [40, 40],
+            "image": "assets/ui/instructions/d.png",
+            "topleft": false,
+            "z-buffer": 0
+        },
+        {
+            "position": [77.5, 540],
+            "size": [40, 40],
+            "image": "assets/ui/instructions/comma.png",
+            "topleft": false,
+            "z-buffer": 0
+        },
+        {
+            "position": [122.5, 540],
+            "size": [40, 40],
+            "image": "assets/ui/instructions/period.png",
+            "topleft": false,
+            "z-buffer": 0
+        }
+    ],
     "containers": [
         {
             "position": [190, 200],
             "size": [320, 730],
             "color": [11, 26, 73],
-            "border": [0, 6]
+            "border": [0, 6],
+            "z-buffer": 1
         },
         {
             "position": [190, 200],
             "size": [320, 730],
             "color": [116, 139, 251],
-            "border": [8, 6]
+            "border": [8, 6],
+            "z-buffer": 0
         },
         {
             "position": [520, 200],
             "size": [120, 300],
             "color": [255, 255, 255],
-            "border": [0, 4]
+            "border": [0, 4],
+            "z-buffer": 2
         },
         {
             "position": [60, 200],
             "size": [120, 115],
             "color": [255, 255, 255],
-            "border": [0, 4]
+            "border": [0, 4],
+            "z-buffer": 2
         },
         {
             "position": [65, 250],
             "size": [110, 60],
             "color": [11, 26, 73],
-            "border": [0, 0]
+            "border": [0, 0],
+            "z-buffer": 1
+        },
+        {
+            "position": [20, 325],
+            "size": [160, 120],
+            "color": [255, 255, 255],
+            "border": [0, 4],
+            "z-buffer": 2
+        },
+        {
+            "position": [20, 455],
+            "size": [160, 120],
+            "color": [255, 255, 255],
+            "border": [0, 4],
+            "z-buffer": 2
         }
     ],
     "texts": [
@@ -40,14 +99,30 @@
             "text": "Score",
             "position": [120, 225],
             "size": 40,
-            "color": [11, 26, 73]
+            "color": [11, 26, 73],
+            "z-buffer": 0
         },
         {
             "id": "score",
             "text": "0",
             "position": [120, 280],
             "size": 40,
-            "color": [255, 255, 255]
+            "color": [255, 255, 255],
+            "z-buffer": 0
+        },
+        {
+            "text": "Movement",
+            "position": [100, 355],
+            "size": 40,
+            "color": [11, 26, 73],
+            "z-buffer": 0
+        },
+        {
+            "text": "Rotation",
+            "position": [100, 485],
+            "size": 40,
+            "color": [11, 26, 73],
+            "z-buffer": 0
         }
     ]
 }

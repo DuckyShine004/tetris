@@ -57,7 +57,6 @@ class App:
     def update(self) -> None:
         """Updates the application."""
 
-        self.ui.update()
         self.graph.update()
 
     def render(self) -> None:

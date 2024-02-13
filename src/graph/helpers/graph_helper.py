@@ -29,6 +29,7 @@ class GraphHelper:
 
         self.ui = ui
         self.graph: "Graph" = graph
+        self.is_moving_to_ghost_position = False
         self.ghost_positions: List[List[int]] = []
 
     def update(self, tetromino: "Tetromino", keys: pygame.key.ScancodeWrapper) -> None:
@@ -42,10 +43,10 @@ class GraphHelper:
 
         self.set_ghost_positions(tetromino)
 
-        if keys[pygame.K_s]:
-            tetromino.color_cells(False)
-            tetromino.positions = list(self.ghost_positions)
-            self.clear_ghost_positions()
+        if keys[pygame.K_s] and not self.is_moving_to_ghost_position:
+            self.move_to_ghost_positions(tetromino)
+        elif not keys[pygame.K_s]:
+            self.is_moving_to_ghost_position = False
 
     def set_ghost_positions(self, tetromino: "Tetromino") -> None:
         """Calculate and set the ghost tetromino positions.
@@ -143,6 +144,12 @@ class GraphHelper:
             for column in range(GRAPH_WIDTH):
                 self.graph.set_occupied(row, column, False)
                 self.graph.set_color(row, column, None)
+
+    def move_to_ghost_positions(self, tetromino):
+        tetromino.color_cells(False)
+        tetromino.positions = list(self.ghost_positions)
+        self.is_moving_to_ghost_position = True
+        self.clear_ghost_positions()
 
     def move_cells_down(self, rows: List[int]) -> None:
         """Move all the cells down after clearing all full rows.
