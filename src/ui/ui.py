@@ -1,5 +1,5 @@
 from src.ui.container import Container
-from src.ui.background import Background
+from src.ui.image import Image
 from src.ui.text import Text
 
 from src.utility.utility import Utility
@@ -20,19 +20,22 @@ class UI:
 
     def create_elements(self, elements):
         match elements:
-            case "background":
-                self.create_background()
             case "containers":
                 self.create_containers()
+            case "images":
+                self.create_images()
             case "texts":
                 self.create_texts()
 
-    def create_background(self):
-        self.elements.append(Background(**self.data["background"]))
+        self.elements.sort(key=lambda x: -x.z_buffer)
 
     def create_containers(self):
         for container in self.data["containers"]:
             self.elements.append(Container(**container))
+
+    def create_images(self):
+        for image in self.data["images"]:
+            self.elements.append(Image(**image))
 
     def create_texts(self):
         for text in self.data["texts"]:
@@ -44,9 +47,6 @@ class UI:
                 continue
 
             element.increment(count)
-
-    def update(self):
-        ...
 
     def render(self, surface):
         for element in self.elements:

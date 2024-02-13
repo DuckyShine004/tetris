@@ -16,6 +16,7 @@ class Text:
         self.font = pygame.font.Font(path, size)
         self.surface = self.font.render(self.text, True, self.color)
         self.rect = self.surface.get_rect(center=self.position)
+        self.z_buffer = kwargs["z-buffer"]
 
     def increment(self, count):
         self.text = str(int(self.text) + count)
