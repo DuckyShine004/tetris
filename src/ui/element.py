@@ -2,32 +2,36 @@
 
 from abc import ABC, abstractmethod
 
+import pygame
+
 
 class Element(ABC):
-
-    """Summary
+    """The Element class removes redundant assignments, and unifies all child
+    components under on parent class.
 
     Attributes:
-        id (TYPE): Description
-        position (TYPE): Description
-        z_buffer (TYPE): Description
+        id (str): The component's identifier.
+        position (list): The component's position.
+        z_buffer (int): The component's z-buffer.
     """
 
     def __init__(self, **kwargs) -> None:
-        """Summary
+        """Initializes the element class.
 
         Args:
-            **kwargs: Description
+            **kwargs: Keyworded, variable-length argument dictionary.
         """
+
         self.id = kwargs.get("id", "")
         self.position = kwargs["position"]
         self.z_buffer = kwargs["z-buffer"]
 
     @abstractmethod
-    def render(self, surface):
-        """Summary
+    def render(self, surface: pygame.Surface) -> None:
+        """Renders UI components.
 
         Args:
-            surface (TYPE): Description
+            surface (pygame.Surface): The display's surface.
         """
+
         pass
