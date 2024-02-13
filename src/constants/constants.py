@@ -130,6 +130,7 @@ PREDICTION = (255, 255, 255)
 # FONT
 FONT_SIZE = 50
 FONT_COLOR = (11, 26, 73)
+SCORE_ID = "txt2"
 
 # PATHS
 UI_PATH = "../../json/ui.json"

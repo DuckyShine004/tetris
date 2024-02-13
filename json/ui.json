@@ -17,11 +17,38 @@
             "border": [8, 6]
         },
         {
-            "position": [530, 200],
+            "position": [520, 200],
             "size": [120, 300],
             "color": [255, 255, 255],
             "border": [0, 4]
+        },
+        {
+            "position": [60, 200],
+            "size": [120, 115],
+            "color": [255, 255, 255],
+            "border": [0, 4]
+        },
+        {
+            "position": [65, 250],
+            "size": [110, 60],
+            "color": [11, 26, 73],
+            "border": [0, 0]
         }
-
+    ],
+    "texts": [
+        {
+            "id": "txt1",
+            "text": "Score",
+            "position": [80, 215],
+            "size": 40,
+            "color": [11, 26, 73]
+        },
+        {
+            "id": "txt2",
+            "text": "0",
+            "position": [112.5, 267.5],
+            "size": 40,
+            "color": [255,255,255]
+        }
     ]
 }
