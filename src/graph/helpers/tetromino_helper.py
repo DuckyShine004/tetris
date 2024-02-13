@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 import pygame
 
-from src.constants.constants import GRAPH_WIDTH, MOVEMENT_DELAY
+from src.constants.constants import GRAPH_WIDTH, MOVEMENT_DELAY, OMINO_ID
 
 if TYPE_CHECKING:
     from src.graph.graph import Graph
@@ -72,7 +72,13 @@ class TetrominoHelper:
         Args:
             tetromino (Tetromino): The current tetromino.
             keys (pygame.key.ScancodeWrapper): The keystrokes.
+
+        Returns:
+            None: Nothing is returned.
         """
+
+        if tetromino.id == OMINO_ID:
+            return
 
         if keys[pygame.K_PERIOD] and not self.is_rotating_clockwise:
             tetromino.rotate_clockwise()

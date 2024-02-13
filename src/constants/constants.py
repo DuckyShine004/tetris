@@ -72,6 +72,7 @@ TETROMINO_ARGUMENTS = {
         "color": (0, 240, 240),
     },
     "OMino": {
+        "id": "OMino",
         "positions": [
             [4, 2],
             [5, 2],
@@ -182,6 +183,7 @@ CELL_OFFSET = (200, 80)
 OUTLINE = (11, 26, 73)
 PREDICTION = (255, 255, 255)
 STACK_SIZE = (15, 15)
+OMINO_ID = "OMino"
 
 # FONT
 FONT_SIZE = 50
