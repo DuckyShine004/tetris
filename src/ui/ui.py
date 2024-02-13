@@ -21,7 +21,7 @@ class UI:
     """The UI class defines the user interface. The user interface can be loaded
     by specifying a path to a JSON file.
 
-    Deleted Attributes:
+    Attributes:
         data (dict): The loaded JSON data.
         elements (list): List of elements that make up the user interface.
     """

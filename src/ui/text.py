@@ -1,6 +1,6 @@
 """This module is a way to create a text UI component."""
 
-from typing import List
+from typing import TYPE_CHECKING, List
 
 import pygame
 
@@ -12,6 +12,9 @@ from src.constants.constants import (
     FONT_COLOR,
     MIN_DELAY,
 )
+
+if TYPE_CHECKING:
+    from src.graph.graph import Graph
 
 
 class Text(Element):
@@ -44,10 +47,11 @@ class Text(Element):
         self.surface: pygame.Surface = self.font.render(self.text, True, self.color)
         self.rect: pygame.Rect = self.surface.get_rect(center=self.position)
 
-    def increment(self, graph, count: int) -> None:
+    def increment(self, graph: "Graph", count: int) -> None:
         """Increment the player's current score.
 
         Args:
+            graph (Graph): The graph object.
             count (int): How much to increment the score count by.
         """
 
@@ -61,7 +65,19 @@ class Text(Element):
         self.rect = self.surface.get_rect()
         self.rect.center = self.position
 
-    def is_score_a_mulitple_of_ten(self, score, count):
+    def is_score_a_mulitple_of_ten(self, score: int, count: int) -> bool:
+        """Returns whether the current score is a multiple of ten. Or at least
+        calculate if the count is at least the distance to the next multiple
+        of ten.
+
+        Args:
+            score (int): The current score.
+            count (int): The current count.
+
+        Returns:
+            bool: The evaluation of whether we should decrease the delay.
+        """
+
         return count >= 10 - (score % 10)
 
     def render(self, surface: pygame.Surface) -> None:
