@@ -168,6 +168,8 @@ class GraphHelper:
         tetromino.occupy_cells(True)
         tetromino.color_cells(True)
 
+        self.clear_full_rows()
+
         self.graph.tetromino = None
 
     def move_cells_down(self, rows: List[int]) -> None:

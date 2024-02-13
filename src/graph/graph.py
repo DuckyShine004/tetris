@@ -74,7 +74,7 @@ class Graph:
         if delta_time < self.delay:
             return
 
-        if not self.tetromino.move_vertically():
+        if self.tetromino and not self.tetromino.move_vertically():
             self.graph_helper.clear_full_rows()
             self.tetromino = None
 
