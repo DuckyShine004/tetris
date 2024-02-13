@@ -145,9 +145,16 @@ class GraphHelper:
                 self.graph.set_occupied(row, column, False)
                 self.graph.set_color(row, column, None)
 
-    def move_to_ghost_positions(self, tetromino):
+    def move_to_ghost_positions(self, tetromino: "Tetromino") -> None:
+        """Moves the current tetromino piece to the ghost position.
+
+        Args:
+            tetromino (Tetromino): The tetromino object.
+        """
+
         tetromino.color_cells(False)
         tetromino.positions = list(self.ghost_positions)
+        tetromino.color_cells(True)
         self.is_moving_to_ghost_position = True
         self.clear_ghost_positions()
 
