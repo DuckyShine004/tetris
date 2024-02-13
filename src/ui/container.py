@@ -8,7 +8,7 @@ from src.ui.element import Element
 
 
 class Container(Element):
-    """The container class defines a 'container' UI component.
+    """The Container class defines a 'container' UI component.
 
     Attributes:
         border (list): The component's border arguments.

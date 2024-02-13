@@ -1,3 +1,7 @@
+"""This module is a way to create a text UI component."""
+
+from typing import List
+
 import pygame
 
 from src.ui.element import Element
@@ -6,24 +10,52 @@ from src.constants.constants import FONT_SIZE, FONT_COLOR
 
 
 class Text(Element):
+    """The Text class defines a 'text' UI component.
+
+    Attributes:
+        color (list): The component's color.
+        font (pygame.Font): The component's font.
+        rect (pygame.Rect): The component's hitbox.
+        surface (pygame.Surface): The component's surface.
+        text (str): The component's text.
+    """
+
     def __init__(self, **kwargs) -> None:
+        """Initializes the Text object.
+
+        Args:
+            **kwargs: Keyworded, variable-length argument dictionary.
+        """
+
         super().__init__(**kwargs)
 
-        self.text = kwargs.get("text", "")
+        self.text: str = kwargs.get("text", "")
 
-        path = kwargs.get("path", None)
-        size = kwargs.get("size", FONT_SIZE)
+        path: str = kwargs.get("path", None)
+        size: int = kwargs.get("size", FONT_SIZE)
 
-        self.color = kwargs.get("color", FONT_COLOR)
-        self.font = pygame.font.Font(path, size)
-        self.surface = self.font.render(self.text, True, self.color)
-        self.rect = self.surface.get_rect(center=self.position)
+        self.color: List[int] = kwargs.get("color", FONT_COLOR)
+        self.font: pygame.Font = pygame.font.Font(path, size)
+        self.surface: pygame.Surface = self.font.render(self.text, True, self.color)
+        self.rect: pygame.Rect = self.surface.get_rect(center=self.position)
 
-    def increment(self, count):
+    def increment(self, count: int) -> None:
+        """Increment the player's current score.
+
+        Args:
+            count (int): How much to increment the score count by.
+        """
+
         self.text = str(int(self.text) + count)
         self.surface = self.font.render(self.text, True, self.color)
         self.rect = self.surface.get_rect()
         self.rect.center = self.position
 
-    def render(self, surface):
+    def render(self, surface: pygame.Surface) -> None:
+        """Renders the text component.
+
+        Args:
+            surface (pygame.Surface): The display's surface.
+        """
+
         surface.blit(self.surface, self.rect)

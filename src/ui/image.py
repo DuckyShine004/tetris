@@ -1,4 +1,4 @@
-"""This module is a way to create a container UI component."""
+"""This module is a way to create a image UI component."""
 
 import pygame
 
@@ -6,7 +6,7 @@ from src.ui.element import Element
 
 
 class Image(Element):
-    """The image class defines a 'image' UI component.
+    """The Image class defines a 'image' UI component.
 
 
     Attributes:
