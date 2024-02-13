@@ -154,9 +154,21 @@ class GraphHelper:
 
         tetromino.color_cells(False)
         tetromino.positions = list(self.ghost_positions)
-        tetromino.color_cells(True)
+        self.finalize_tetromino_position(tetromino)
         self.is_moving_to_ghost_position = True
         self.clear_ghost_positions()
+
+    def finalize_tetromino_position(self, tetromino: "Tetromino") -> None:
+        """Finalizes the current tetromino's position.
+
+        Args:
+            tetromino (Tetromino): The current tetromino.
+        """
+
+        tetromino.occupy_cells(True)
+        tetromino.color_cells(True)
+
+        self.graph.tetromino = None
 
     def move_cells_down(self, rows: List[int]) -> None:
         """Move all the cells down after clearing all full rows.

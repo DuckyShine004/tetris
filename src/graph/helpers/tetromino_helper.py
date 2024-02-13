@@ -49,6 +49,9 @@ class TetrominoHelper:
             None: Nothing is returned.
         """
 
+        if not tetromino:
+            return
+
         self.rotate(tetromino, keys)
 
         current_time = pygame.time.get_ticks()
